@@ -678,6 +678,7 @@
 
         }
         }
+        
 
 </style>
 
@@ -699,8 +700,12 @@
           <p>Design ID: {{ product.product_id }}</p>
           <p>Genre: {{ product.tag }}</p>
       </figcaption>
+    </a>
+      <span class="like-btn" data-product-id="{{ product.id }}">
+        <i class="fa-heart {% if product in liked_products %}fas liked{% else %}far{% endif %}"></i>
+    </span>
   </li>
-  </a>
+  
   {% endfor %}
 </ul>
 
@@ -1055,7 +1060,7 @@
     
       
     
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

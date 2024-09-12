@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        body {
+            min-height: 60vh;
+            margin-top: 20px;
+            margin-bottom:70px;
+            background-color: black;
+            background-image:
+                radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+                radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 30px;
+            color: white;
+            font-family: "Poppins", sans-serif;
+            position: relative;
+            padding-bottom: 60px; /* Add padding at the bottom for footer */
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .product-card {
+            --bg-card: #27272a;
+            --primary: #6d28d9;
+            --primary-800: #4c1d95;
+            --primary-shadow: #2e1065;
+            --light: #d9d9d9;
+            --zinc-800: #18181b;
+            --bg-linear: linear-gradient(0deg, var(--primary) 50%, var(--light) 125%);
+            position: relative;
+            display: flex;
+            margin-left:25px;
+            margin-top: 20px;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1rem;
+            width: 16rem;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+
+        .image_container {
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 12rem;
+            border-radius: 0.5rem;
+        }
+
+        .image_container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .title {
+            overflow: clip;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--light);
+            text-transform: capitalize;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .size {
+            font-size: 0.95rem;
+            color: var(--light);
+        }
+
+        .list-size {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-top: 0.15rem;
+            margin-bottom: 0.2rem;
+            margin-left: -2.65rem;
+            width: 100%;
+
+        }
+
+        .list-size .item-list {
+            list-style: none;
+        }
+
+        .list-size .item-list-button {
+            cursor: pointer;
+            padding: 0.5rem;
+            background-color: var(--zinc-800);
+            font-size: 0.75rem;
+            color: var(--light);
+            border: 2px solid var(--zinc-800);
+            border-radius: 0.25rem;
+            transition: all 0.3s ease-in-out;
+            flex: 1;
+            width:3em;
+
+            box-sizing: border-box; /* Ensure padding and borders are included in the width */
+        }
+
+        .item-list-button:hover {
+            border: 2px solid var(--light);
+        }
+
+        .item-list-button:focus {
+            background-color: var(--primary);
+            border: 2px solid var(--primary-shadow);
+            box-shadow: inset 0px 1px 4px var(--primary-shadow);
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: -50px;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+
+        }
+
+        .remove-button {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            width: 80px;
+            height:35px;
+            background-color: red;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--light);
+            border: 2px solid hsla(262, 83%, 58%, 0.5);
+            border-radius: 15px;
+            box-shadow: inset 0 0 0.25rem 1px var(--light);
+        }
+
+        .remove-button:hover {
+            background-color: var(--primary);
+            border: 2px solid var(--primary-shadow);
+        }
+
+        
+
+        @media (max-width: 1200px) {
+            .product-card {
+                flex: 0 0 calc(50% - 20px);
+                max-width: calc(50% - 20px);
+                margin-left:22px;
+                margin-top:22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                flex: 0 0 calc(100% - 20px);
+                max-width: calc(100% - 30px);
+            }
+            .image_container {
+                height:16rem;
+            }
+        }
+
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% if not liked_products %}
+       <p class="text-center" style="font-family:myfont; font-size:1.5rem;margin-top:200px;">NOTHING'S HERE !! 🥲🥲</p>
+       <div class="text-center">
+        <a href="{% url 'productapp:shop' %}">
+       <img src="/static/add.svg" style="width:100px;" >
+       </a>
+       </div>
+   {% else %}
+   <h1 class="text-center text-secondary" style="margin-top:5px;margin-bottom:20px;font-family:myfont;font-size:32px;">YOUR LIKES</h1>
+    <ul class="product-list">
+        {% for product in liked_products %}
+        <li class="product-card">
+            <a href="{% url 'productapp:details' product.product_id %}" style="color:white;">
+            <div class="image_container">
+                <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            </div>
+            </a>
+            <div class="title">
+                <span style="font-family:myfont;">{{ product.title }}</span>
+            </div>
+            <div class="price">
+                <span>Rs:{{ product.price }}</span>
+            
+        </div>
+        
+        <div class="action">
+            <button class="remove-button" data-product-id="{{ product.id }}">Remove</button>
+        </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    
+    {% endif %}
+
+   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

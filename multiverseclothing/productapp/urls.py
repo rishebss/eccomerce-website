@@ -29,6 +29,8 @@ urlpatterns = [
     path('checkout/', views.checkout_summary, name='checkout_summary'),
     path('success/', views.success, name='success'),
     path('userorders/', views.userorders, name='userorders'),
+    path('toggle_like/', views.toggle_like, name='toggle_like'),
+    path('liked_products/', views.liked_products, name='liked_products'),
 
 
 

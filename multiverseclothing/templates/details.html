@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ product.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
@@ -23,7 +24,8 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             font-family: 'Arial', sans-serif;
-            padding: 100px;
+            padding: 10px 100px;
+            height:50vh;
         }
 
         .product-detail {
@@ -34,9 +36,10 @@
     border: 1px solid rgba(255, 255, 255, 0.125);
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            padding: 30px 100px;
+            padding:20px 70px;
             color: white;
-            margin-top: 50px;
+            margin-top: 40px;
+            margin-bottom: 50px;
         }
 
         .color-circle {
@@ -171,6 +174,16 @@
             }
 
         }
+        .liked {
+    color: red;
+}
+
+.like-btn i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-top:10px;
+}
     </style>
 </head>
 <body>
@@ -178,7 +191,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6 product-detail">
                 <div class="text-center">
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid rounded mb-4">
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid rounded mb-4" style="height:300px;">
+                    
                     <h1 class="mb-3 text-white" style="font-family: myfont;">{{ product.title }}</h1>
                     <p><strong>Product ID:</strong> {{ product.product_id }}</p>
                     <p><strong>Price:</strong> Rs {{ product.price }}</p>
@@ -190,6 +204,9 @@
 
                             <p class="text">Buy Now</p>
                         </button>
+                        <span class="like-btn" data-product-id="{{ product.id }}" style="margin-left:10px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:50px;height:45px;border-radius:10px;margin-top:3px;">
+                            <i class="fa-heart {% if product in liked_products %}fas liked{% else %}far{% endif %}"></i>
+                        </span>
                     </div>
                     {% else %}
                     <div class="button-container">
@@ -197,11 +214,43 @@
 
                             <p class="text">Login To Buy</p>
                         </button>
+                        
                     </div>
                     {% endif %}
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.like-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const heartIcon = this.querySelector('i');
+        
+                    fetch("{% url 'productapp:toggle_like' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'  // Ensure CSRF token is included
+                        },
+                        body: JSON.stringify({ product_id: productId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.liked) {
+                            heartIcon.classList.remove('far');
+                            heartIcon.classList.add('fas', 'liked');
+                        } else {
+                            heartIcon.classList.remove('fas', 'liked');
+                            heartIcon.classList.add('far');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+        
+        </script>
         
 
     <!-- Modal for Buy Now -->
@@ -246,6 +295,7 @@
     </div>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
+import json
 
-from .models import Product,Magazine,Shop,Cart,OrderCart
+from .models import Product,Magazine,Shop,Cart,OrderCart,Like
 from django.contrib.auth.decorators import login_required
 from .models import Selection
 from django.conf import settings
@@ -83,7 +84,31 @@ def fetch_products(request):
 
     return JsonResponse({'products': products_data})
 
+def toggle_like(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)  # Load the JSON body
+        product_id = data.get('product_id')  # Get product_id from JSON
+        
+        product = get_object_or_404(Product, id=product_id)
+        like, created = Like.objects.get_or_create(user=request.user, product=product)
 
+        if not created:
+            # If the user already liked it, unlike it
+            like.delete()
+            return JsonResponse({'liked': False})
+
+        return JsonResponse({'liked': True})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def liked_products(request):
+    if request.user.is_authenticated:
+        liked_product_ids = Like.objects.filter(user=request.user).values_list('product_id', flat=True)
+        liked_products = Product.objects.filter(id__in=liked_product_ids)
+    else:
+        liked_products = []
+
+    return render(request, 'likes.html', {'liked_products': liked_products})
 
 def category_view(request, tag):
     products = Product.objects.filter(tag=tag).order_by('-created_at')
@@ -92,6 +117,7 @@ def category_view(request, tag):
 
 def details(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
+    liked_products = Like.objects.filter(user=request.user).values_list('product', flat=True)
     colors = product.color.split(',')
     sizes = product.size.split(',')
     color_map = {
@@ -110,8 +136,9 @@ def details(request, product_id):
         'Yellow': '#FFFF00',
         'Tan': '#D2B48C',
     }
+    
     color_codes = [(color, color_map.get(color, '#000000')) for color in colors]
-    return render(request, 'details.html', {'product': product, 'color_codes': color_codes,'sizes':sizes})
+    return render(request, 'details.html', {'product': product, 'color_codes': color_codes,'sizes':sizes,'liked_products':liked_products})
 
 
 @login_required
