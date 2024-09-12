@@ -1,0 +1,410 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Image Change</title>
+    <link rel = "stylesheet" href = "style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    font-family: 'Roboto', sans-serif;
+     background-color: black;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 30px;
+            
+
+}
+@font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+
+img{
+    width: 100%;
+    display: block;
+}
+.main-wrapper{
+    min-height: 100vh;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    max-width: 1200px;
+    padding: 0 1rem;
+    margin: 0 auto;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+
+}
+.product-div{
+    margin: 1rem 0;
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+
+    border-radius: 3px;
+    column-gap: 10px;
+    color:white;
+}
+.product-div-left{
+    padding: 20px;
+}
+.product-div-right{
+    padding: 20px;
+}
+.img-container img{
+    width: 200px;
+    margin: 0 auto;
+}
+.hover-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+}
+.hover-container div{
+    border: 2px solid rgba(252, 160, 175, 0.7);
+    padding: 1rem;
+    border-radius: 3px;
+    margin: 0 4px 8px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.active{
+    border-color: rgb(255, 145, 163)!important;
+}
+.hover-container div:hover{
+    border-color: rgb(255, 145, 163);
+}
+.hover-container div img{
+    width: 50px;
+    cursor: pointer;
+}
+.product-div-right span{
+    display: block;
+}
+.product-name{
+    font-size: 26px;
+    margin-bottom: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+.product-price{
+    font-weight: 700;
+    font-size: 24px;
+    opacity: 0.9;
+    font-weight: 500;
+}
+.product-rating{
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+}
+.product-rating span{
+    margin-right: 6px;
+}
+.product-description{
+    font-weight: 18px;
+    line-height: 1.6;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-top: 22px;
+}
+.btn-groups{
+    margin-top: 22px;
+}
+.btn-groups button{
+    display: inline-block;
+    font-size: 16px;
+    font-family: inherit;
+    text-transform: uppercase;
+    padding: 15px 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-groups button .fas{
+    margin-right: 8px;
+}
+.add-cart-btn{
+    background-color: #000;
+    border: 2px solid purple;
+    margin-right: 8px;
+}
+.add-cart-btn:hover{
+    background-color: #fff;
+    color: #FF9F00;
+}
+.buy-now-btn{
+    background-color:purple;
+    border: 2px solid #000;
+    margin-top:5px;
+}
+.buy-now-btn:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+@media screen and (max-width: 992px){
+    .container {
+       margin-bottom:50px;
+       }
+    .product-div {
+        grid-template-columns: 1fr;
+        width:320px;
+
+    }
+    .product-div-left {
+        padding: 20px;
+    }
+    .img-container img {
+        width: 100%;
+         height:100%;/* Ensure the main image takes full width */
+    }
+    .hover-container {
+        display: flex; /* Use flexbox for the thumbnails */
+        flex-wrap: wrap;
+        gap: 10px; /* Add spacing between thumbnails */
+        justify-content: center; /* Center thumbnails */
+        margin-top: 10px; /* Add margin-top for spacing */
+    }
+    .hover-container div {
+        flex: 1 1 20%; /* Adjust size for thumbnails */
+    }
+    .hover-container div img {
+        width: 100%; /* Ensure thumbnails are responsive */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .btn-groups button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+    .button-container {
+            display: none; /* Hide by default */
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                display: flex;
+                justify-content:center;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                position:fixed;
+                z-index: 1000; /* Make sure it's on top of other content */
+                backdrop-filter: blur(16px) saturate(180%);
+                -webkit-backdrop-filter: blur(16px) saturate(180%);
+                background-color: rgba(17, 25, 40, 0.75);
+                border-radius: 2px;
+                border: 1px solid rgba(255, 255, 255, 0.125);
+                justify-content: space-around;
+                padding: 10px;
+
+            }
+        }
+
+        .button {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon {
+            font-size: 20px;
+        }
+</style>
+</head>
+<body>
+<nav class="button-container">
+  <button class="button">
+    <svg
+      class="icon"
+      stroke="currentColor"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 1024 1024"
+      height="1em"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
+      ></path>
+    </svg>
+  </button>
+  <button class="button">
+    <svg
+      class="icon"
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      height="1em"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+    ></path>
+
+    </svg>
+  </button>
+  <button class="button">
+    <svg
+      class="icon"
+      stroke="currentColor"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
+      ></path>
+    </svg>
+  </button>
+
+  <button class="button">
+    <svg
+      class="icon"
+      stroke="currentColor"
+      fill="none"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      height="1em"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path
+        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+      ></path>
+    </svg>
+  </button>
+</nav>
+
+    <div class = "main-wrapper">
+        <div class = "container">
+            <div class = "product-div">
+                <div class = "product-div-left">
+                    <div class = "img-container">
+                        <img src = "{{ product.photo1.url }}" alt = "watch">
+                    </div>
+                    <div class = "hover-container">
+                        <div><img src = "{{ product.photo1.url }}"></div>
+                        <div><img src = "{{ product.photo2.url }}"></div>
+                        <div><img src = "{{ product.photo3.url }}"></div>
+
+                    </div>
+                </div>
+                <div class = "product-div-right">
+                    <span class = "product-name" style="font-family: myfont;">{{ product.name }}</span>
+                    <span class = "product-price"  style="font-family: myfont;">Rs: 500</span>
+
+                    <p class = "product-description">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 additional-info text-center">
+                                <h2 class="text-center text-white" style="color:white;font-family: myfont;">Product Details</h2><br>
+                                <ul>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong >Design:</strong> {{ product.design }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Fit:</strong> {{ product.fit }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Occasion:</strong> {{ product.occasion }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Sleeve:</strong> {{ product.sleeve }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Neck:</strong> {{ product.neck }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Wash Care:</strong> {{ product.wash_care }}</span>
+                                </ul>
+                            </div>
+                        </div>
+                    </p>
+                    <div class = "btn-groups">
+                        <a href="{% url 'productapp:add_to_cart' %}"><button type = "button" class = "add-cart-btn"><i class = "fas fa-shopping-cart"></i>add to cart</button></a>
+                        <button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+    <script>
+        const allHoverImages = document.querySelectorAll('.hover-container div img');
+const imgContainer = document.querySelector('.img-container');
+
+window.addEventListener('DOMContentLoaded', () => {
+    allHoverImages[0].parentElement.classList.add('active');
+});
+
+allHoverImages.forEach((image) => {
+    image.addEventListener('mouseover', () =>{
+        imgContainer.querySelector('img').src = image.src;
+        resetActiveImg();
+        image.parentElement.classList.add('active');
+    });
+});
+
+function resetActiveImg(){
+    allHoverImages.forEach((img) => {
+        img.parentElement.classList.remove('active');
+    });
+}
+    </script>
+    
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

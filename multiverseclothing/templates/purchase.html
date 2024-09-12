@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Summary</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+  background-color: #000000;
+  background-image:
+    radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+    radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  font-family: "IBM Plex Sans";
+  font-weight: 300;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; /* Changed from height: 140vh */
+  margin: 0;
+  color: #d5d5d5;
+  font-size: calc(0.3 * var(--m));
+}
+@font-face {
+    font-family: myfont;
+    src: url(/static/Geometos.ttf);
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Ensure it is above everything else */
+}
+
+/* Style for the blur effect */
+.blurred-background {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+    </style>
+</head>
+<body>
+    <div>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" style="font-family: myfont;">Product Summary</h1>
+        <ul class="list-group">
+            <li class="list-group-item" style="background-color: #171732;border-radius:10px;">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1" style="font-family: myfont;">{{ selection.product.title }}</h5>
+                    <small style="font-family: myfont;">Size : {{ selection.selected_size }}</small>
+                </div>
+                <p class="mb-1" style="font-family: myfont;">color : {{ selection.selected_color }}</p>
+            </li>
+            <br>
+
+        </ul>
+
+        <h3 class="text-right mt-4" style="font-family: myfont;">Rs {{ selection.product.price }}</h3>
+        <div class="text-center mt-4">
+            {% if user_profile %}
+            <button type="button" class="btn btn-primary" id="shippingDetailsButton" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">shipping details</button>
+            {% else %}
+            <button type="button" class="btn btn-primary" id="shippingDetailsButton" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">add shipping details</button>
+            {% endif %}
+            {% if user_profile %}
+            <form method="post" action="">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;margin-top:10px;">proceed to pay</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <div id="overlay" class="overlay" style="display: none;">
+        <div class="list-group-item" style="background-color: #171732; border-radius: 10px;">
+            <div class="container">
+            {% if user_profile %}
+            <!-- Display saved shipping details -->
+            <div class="account-details mt-4">
+                <p style="font-family: myfont;color:#a9a9a9"><strong>Recipient Name:</strong> {{ user_profile.recipient_name }}</p>
+                <p style="font-family: myfont;color:#a9a9a9"><strong>Shipping Address:</strong> {{ user_profile.shipping_address }}</p>
+                <p style="font-family: myfont;color:#a9a9a9"><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+                <p style="font-family: myfont;color:#a9a9a9"><strong>State:</strong> {{ user_profile.state }}</p>
+                <p style="font-family: myfont;color:#a9a9a9"><strong>City:</strong> {{ user_profile.city }}</p>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'productapp:account' %}" class="btn btn-primary"  style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">Edit Shipping Details</a>
+            </div>
+            {% else %}
+            <!-- Display shipping details form -->
+            <form method="POST" action="{% url 'productapp:save_details' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="recipient_name" class="text-white">Recipient Name</label>
+                    <input type="text" id="recipient_name" name="recipient_name" class="form-control" required style="background-color: #222754;color:aliceblue">
+                </div>
+                <div class="form-group">
+                    <label for="shipping_address" class="text-white">Shipping Address</label>
+                    <input type="text" id="shipping_address" name="shipping_address" class="form-control" required style="background-color: #222754;color:aliceblue">
+                </div>
+                <div class="form-group">
+                    <label for="phone_number" class="text-white">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone_number" class="form-control" required style="background-color: #222754;color:aliceblue">
+                </div>
+                <div class="form-group">
+                    <label for="state" class="text-white">State</label>
+                    <input type="text" id="state" name="state" class="form-control" required style="background-color: #222754;color:aliceblue">
+                </div>
+                <div class="form-group">
+                    <label for="city" class="text-white">City</label>
+                    <input type="text" id="city" name="city" class="form-control" required style="background-color: #222754;color:aliceblue">
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">Save</button>
+                </div>
+            </form>
+            {% endif %}
+            </div>
+        </div>
+     </div>
+
+     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleButton = document.querySelector('#shippingDetailsButton');
+            const overlay = document.getElementById('overlay');
+            const content = document.getElementById('content');
+
+            toggleButton.addEventListener('click', function() {
+                // Show the overlay
+                overlay.style.display = "flex";
+                // Blur the background content
+                content.classList.add("active");
+            });
+
+            // Optional: Close the overlay when clicked outside or by a close button
+            overlay.addEventListener('click', function(event) {
+                if (event.target === overlay) { // Close when clicking outside the content
+                    overlay.style.display = "none";
+                    content.classList.remove("active");
+                }
+            });
+        });
+    </script>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

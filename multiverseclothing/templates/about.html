@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700|Roboto+Condensed:400,700" rel="stylesheet" type="text/css">
+    <title>Responsive Navbar</title>
+</head>
+<style>
+  @import url("https://fonts.googleapis.com/css?family=IBM%20Plex%20Sans:500|IBM%20Plex%20Sans:300");
+
+:root {
+  --m: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  background-image:
+    radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+    radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+  font-family: "IBM Plex Sans";
+  font-weight: 300;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; /* Changed from height: 140vh */
+  margin: 0;
+  color: #d5d5d5;
+  font-size: calc(0.3 * var(--m));
+}
+
+.about-section {
+  max-width: 800px;
+  margin: 1rem 2rem;
+  
+}
+
+.subsection {
+  backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+}
+
+.about-section h4 {
+  
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  margin-top: 10px;
+  z-index: 500;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  padding: 5rem 2vw;
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 5%,
+    rgba(0, 0, 0, 0.3) 20%,
+    rgba(0, 0, 0, 0.6) 30%,
+    rgba(0, 0, 0, 0.8) 40%,
+    rgba(0, 0, 0, 1) 50%,
+    rgb(0, 0, 0)
+  );
+  z-index: -7;
+}
+
+.backdrop {
+  z-index: -5;
+  position: absolute;
+  inset: 0;
+
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+
+  mask-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+
+  -webkit-mask-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+}
+
+.col {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: calc(0.3 * var(--m)) calc(0.8 * var(--m));
+  width: 28%;
+}
+
+.col2,
+.col3 {
+  backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+  border-radius: calc(0.5 * var(--m));
+}
+
+img {
+  height: calc(0.3 * var(--m));
+  object-fit: cover;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1rem;
+  
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link {
+  width: calc(0.8 * var(--m));
+  height: calc(0.8 * var(--m));
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: calc(0.1 * var(--m));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+  :root {
+    --m: 3rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  footer {
+    flex-direction: column;
+    padding: 5rem 20vw;
+  }
+  .col {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+    footer {
+      flex-direction: column;
+      padding: 2rem 5vw;
+    }
+
+    .col {
+      width: 100%;
+    }
+
+    .about-section {
+      margin: 1rem 1rem; /* Reduced margin for smaller screens */
+      flex-grow: 1; /* Pushes the footer to the bottom */
+    }
+
+    .subsection {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    footer {
+    padding: 2rem 5vw;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col {
+    width: 100%;
+    padding: calc(0.1 * var(--m)) calc(0.4 * var(--m));
+    margin-bottom: 1.5rem; /* Adds some space between columns */
+  }
+
+  .col2, .col3 {
+    border-radius: calc(0.3 * var(--m)); 
+  }
+}
+
+
+@font-face {
+    font-family: myfont;
+    src: url(/static/Geometos.ttf);
+}
+</style>
+<body id="top">
+  <nav class="navbar bg-body-tertiary" style="margin-top:30px;">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <h2 style="font-family:myfont;font-size: 40px;">ABOUT US</h2>
+      </a>
+    </div>
+  </nav>
+  
+  <div class="about-section">
+    <div class="subsection">
+      <h4>Who We Are</h4>
+      <p>Welcome to <strong>Multiverse Clothing</strong>, where fashion meets the future! We’re more than just a clothing store—we’re a platform for self-expression. Specializing in drop-shoulder t-shirts, crop tops, jeans, accessories, and caps, our collection is designed to stand out and let you do the same.</p>
+    </div>
+
+    <div class="subsection">
+      <p><strong>Why Multiverse?</strong></p>
+      <p>Our name, <strong>Multiverse</strong>, embodies our commitment to exploring endless possibilities in fashion. Just as the multiverse concept imagines infinite worlds and realities, we envision limitless creativity in our designs. Whether you’re into bold graphics, minimalist art, or something entirely your own, we’ve got the perfect canvas for your individuality.</p>
+    </div>
+
+    <div class="subsection">
+      <p><strong>What We Offer</strong></p>
+      <p>At <strong>Multiverse Clothing</strong>, we provide two unique experiences:</p>
+      <ul>
+        <p><strong>Our Designs:</strong> Choose from our carefully curated selection of t-shirts, crop tops, and more, each with a design that pushes the boundaries of fashion.</p>
+        <p><strong>Custom Creations:</strong> Not finding exactly what you’re looking for? No problem! With our custom services, you can bring your own design ideas to life. Choose your favorite style, color, and create something truly unique—crafted by you, for you.</p>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <p><strong>Quality You Can Trust</strong></p>
+      <p>Quality is at the core of everything we do. We guarantee that our prints will last for more than 2 years, ensuring that your favorite pieces remain as vibrant and stylish as the day you bought them.</p>
+    </div>
+
+    <div class="subsection">
+      <p><strong>Our Purpose</strong></p>
+      <p>At <strong>Multiverse Clothing</strong>, we believe that clothing should be as unique and dynamic as you are. Whether you're making a statement with one of our original designs or crafting your own custom masterpiece, we’re here to help you explore the future of fashion, one drop-shoulder tee at a time.</p>
+      <p>Join us on this journey of creativity and self-expression. Welcome to the <strong>Multiverse</strong>.</p>
+    </div>
+  </div>
+
+  <footer id="footer">
+    <div class="col col1 ">
+      <h3 style="font-family:myfont;margin-bottom:45px;margin-left:-10px;">MULTIVERSE CLOTHING</h3>
+      
+      <div class="social">
+        <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+        <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+        <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+      </div>
+      <br>
+      <p style="color: #818181; font-size: smaller">2024 © All Rights Reserved</p>
+    </div>
+    <div class="col col2 ">
+      <p>HOME</p>
+      <p>CALL US</p>
+      <p>PRIVACY POLICIES</p>
+      <p>SOCIALS</p>
+    </div>
+    <div class="col col3">
+      <p>CUSTOM SERVICE</p>
+      <p>PRODUCTS</p>
+      <p>DESIGNS</p>
+      <p><a href="#top">BACK TO TOP</a></p>
+    </div>
+    <div class="backdrop"></div>
+  </footer>
+
+</body>
+</html>

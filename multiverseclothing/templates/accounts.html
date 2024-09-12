@@ -1,0 +1,515 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #16161f;
+            
+            
+            
+
+        }
+
+        .account-container {
+            backdrop-filter: blur(11px) saturate(180%);
+    -webkit-backdrop-filter: blur(11px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+
+        }
+
+        .account-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .account-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .account-details {
+            font-size: 1.1rem;
+            color: #ffffff;
+            padding: 10px;
+            border: 1px solid #ffffff;
+            border-radius: 10px;
+        }
+
+        .account-details p {
+            margin: 10px 0;
+        }
+
+        .btn-edt {
+            background-color: purple;
+            border-color: black;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-edt:hover {
+            background-color: black;
+        }
+
+        @media (max-width: 768px) {
+            .account-container {
+                padding: 20px;
+            }
+
+            .account-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .btn-edt {
+                font-size: 1rem;
+                padding: 8px 16px;
+                background:purple;
+                border-radius:5px;
+            }
+        }
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+    </style>
+</head>
+<body>
+    <style>
+         .navbar {
+            
+            background-color: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
+              color: white;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              position: fixed; 
+              top: 0;
+              left:0;
+              width: 100%; 
+              z-index: 1000;
+              background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2) 100%);
+      box-shadow: 0 3px 60px rgba(0, 0, 0, 0.3);
+              
+              
+              
+              
+          }
+          
+          .navbar a {
+              color: white;
+              text-decoration: none;
+              padding: 0.5rem 1rem;
+              font-size: 16px;
+          }
+  
+          .navbar a:hover {
+              background-color: #575757;
+              border-radius: 4px;
+          }
+  
+          .navbar .logo {
+              font-family: myfont;
+              font-size:1.7rem;
+          }
+  
+          .navbar .menu {
+              display: flex;
+              align-items: center;
+              background-color: rgba(0, 0, 0, 1);
+              border-radius: 10px;
+          }
+  
+          .navbar .menu .dropdown {
+              position: relative;
+          }
+  
+          .navbar .menu .dropdown-content {
+              display: none;
+              position: absolute;
+              top: 100%;
+              left: 0;
+              margin-top: 30px;
+              backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.75);
+              min-width: 160px;
+              border-radius: 10px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+          }
+  
+          .navbar .menu .dropdown-content a {
+              color: white;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+          }
+  
+          .navbar .menu .dropdown-content a:hover {
+              background-color: #575757;
+          }
+  
+          .navbar .menu .dropdown:focus-within .dropdown-content,
+  .navbar .menu .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  @media (max-width: 992px) {
+              .navbar {
+                  padding: 1rem;
+                  
+              }
+              .navbar .menu {
+                  display: none;
+              }
+          }
+          @media (min-width: 768px) and (max-width: 991px) {
+      .navbar {
+          padding: 0.5rem;
+          justify-content: space-around;
+      }
+      
+      .navbar .logo {
+          font-size: 1.5rem;
+      }
+  
+      .navbar .menu {
+          display: none;
+          flex-direction: column;
+          align-items: flex-start;
+          background-color: rgba(0, 0, 0, 0.8);
+          border-radius: 8px;
+          padding: 0.5rem;
+      }
+  
+      
+  }
+    </style>
+   
+    
+    <nav class="button-container">
+      <button class="button">
+        <svg
+          class="icon"
+          stroke="currentColor"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 1024 1024"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
+          ></path>
+        </svg>
+      </button>
+      <button class="button">
+        <svg
+          class="icon"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+        ></path>
+    
+        </svg>
+      </button>
+      <button class="button">
+        <svg
+          class="icon"
+          stroke="currentColor"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
+          ></path>
+        </svg>
+      </button>
+    
+      <button class="button">
+        <svg
+          class="icon"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          height="1em"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path
+            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+          ></path>
+        </svg>
+      </button>
+    </nav>
+    <style>
+        .button-container {
+            display: none; /* Hide by default */
+        }
+
+        @media (max-width: 768px) {
+
+            .button-container {
+                display: flex;
+                justify-content:center;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                position:fixed;
+                z-index: 1000; /* Make sure it's on top of other content */
+                backdrop-filter: blur(16px) saturate(180%);
+                -webkit-backdrop-filter: blur(16px) saturate(180%);
+                background-color: rgba(17, 25, 40, 0.75);
+                border-radius: 2px;
+                border: 1px solid rgba(255, 255, 255, 0.125);
+                justify-content: space-around;
+                padding: 10px;
+
+
+            }
+
+        }
+
+        .button {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon {
+            font-size: 20px;
+        }
+    </style>
+    
+    <header class="navbar">
+        <div class="logo">ACCOUNT CENTER</div>
+        <div class="menu">
+           
+    
+            <a href="{% url 'credentials:home' %}">Home</a>
+            
+            <div class="dropdown">
+                <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'productapp:shop' %}">Products</a>
+                    <a href="{% url 'productapp:allproducts' %}">Designs</a>
+                    
+                </div>
+            </div>
+            <a href="#">Contact</a>
+        </div>
+    </header>
+    <div class="container" style="margin-top: 40px;">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 account-container">
+                <P>Email : {{user.email}} </P>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <div class="account-header">
+                    
+                    
+                    
+                        
+                <div class="account-details" style="font-family: myfont;color:#a9a9a9">
+                    
+                    <p><strong>Recipient Name:</strong> {{ user_profile.recipient_name }}</p>
+                    <p><strong>Shipping Address:</strong> {{ user_profile.shipping_address }}</p>
+                    <p><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+                    <p><strong>State:</strong> {{ user_profile.state }}</p>
+                    <p><strong>City:</strong> {{ user_profile.city }}</p>
+                </div>
+                <div class="text-center mt-4 mb-4" style="font-family: myfont;">
+                    <a href="{% url 'productapp:edit_profile' %}" class="btn btn-edt text-white mb-2" style="margin-right: 2px;margin-left: 5px;background-image: url('{% static 'gradient3.jpg' %}');">Edit</a>
+                    <a href="{% url 'productapp:view_cart' %}" class="btn btn-edt text-white mb-2" style="margin-right: 2px;background-image: url('{% static 'gradient3.jpg' %}');">Cart</a>
+                    <a href="{% url 'productapp:userorders' %}" class="btn btn-edt text-white mb-2" style="margin-right: 2px;background-image: url('{% static 'gradient3.jpg' %}');">Orders</a>
+                    <a href="" class="btn btn-edt text-white mb-2" style="background-image: url('{% static 'gradient3.jpg' %}');">Custom Requests</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .footer {
+          inset: 0;
+        background: linear-gradient(
+          rgba(0, 0, 0, 0) 5%,
+          rgba(0, 0, 0, 0.3) 20%,
+          rgba(0, 0, 0, 0.6) 30%,
+          rgba(0, 0, 0, 0.8) 40%,
+          rgba(0, 0, 0, 1) 50%,
+          rgb(0, 0, 0)
+        );
+        z-index: -7;
+          color: white;
+          padding: 2rem;
+          text-align: center;
+          bottom:0;
+          width:100vw;
+          margin-top: 150px;
+          margin-bottom: -60px;
+          left:0;
+          margin-left:-130px;
+          
+      }
+      @media (max-width: 768px) {
+        .footer {
+         width:100vw;
+         margin-left:-10px;
+        }
+        
+      }
+      
+      .footer-content {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+      }
+      
+      .footer-section {
+          flex: 1;
+          margin: 1rem;
+      }
+      
+      .footer-section h2 {
+          margin-bottom: 1rem;
+          font-size: 20px;
+          color: #f4f4f4;
+      }
+      
+      .footer-section p,
+      .footer-section ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+      
+      .footer-section p {
+          font-size: 16px;
+      }
+      
+      .footer-section ul {
+          display: flex;
+          flex-direction: column;
+      }
+      
+      .footer-section ul li {
+          margin-bottom: 0.5rem;
+      }
+      
+      .footer-section ul li a {
+          color: #f4f4f4;
+          text-decoration: none;
+          transition: color 0.3s;
+      }
+      
+      .footer-section ul li a:hover {
+          color: #1e90ff;
+      }
+      
+      .footer-section .social {
+          display: flex;
+          justify-content: center;
+      }
+      
+      .footer-section .social-icon {
+          display: inline-block;
+          margin: 0 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 50%;
+          background-color: #555;
+          color: white;
+          text-decoration: none;
+          font-size: 18px;
+          transition: background-color 0.3s, color 0.3s;
+      }
+      
+      .footer-section .social-icon:hover {
+          background-color: #1e90ff;
+          color: white;
+      }
+      
+      .footer-bottom {
+          border-top: 1px solid #444;
+          padding-top: 1rem;
+          font-size: 14px;
+          margin-bottom: 4rem;
+      }
+      </style>
+      <footer class="footer">
+        <div class="footer-content">
+            
+            <div class="footer-section links">
+                <h2 style="font-family:myfont;">multiverseclothing</h2>
+                <img src="/static/mmm.png" style="width:200px;margin-top: -40px;">
+            </div>
+            <div class="footer-section contact">
+                <h2 style="font-family: myfont;">Quick Links</h2>
+                <p style="font-family:myfont;"><a href="#home" style="color:white;">Home</a></p>
+                <p style="font-family:myfont;"><a href="#home" style="color:white;">Designs</a></p>
+                <p style="font-family:myfont;"><a href="#home" style="color:white;">About</a></p>
+                <p style="font-family:myfont;"><a href="#home" style="color:white;">Top</a></p>
+                
+            </div>
+            <div class="footer-section social">
+              <h2 style="font-family:myfont;">Connect Us</h2>
+              <div class="social">
+                
+                <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+                <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+                <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+              </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Multiverse clothing. All Rights Reserved.</p>
+        </div>
+      </footer>
+</body>
+</html>

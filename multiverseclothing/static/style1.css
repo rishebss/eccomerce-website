@@ -1,0 +1,14 @@
+.card {
+background-color:dark;
+padding:5px;
+border-radius:5px;
+title-color:grey
+}
+.body {
+background-image: url('static/img/caddall1.jpg');
+width:100vh;
+height:100vh;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+}

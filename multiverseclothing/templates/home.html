@@ -1,0 +1,1419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+   
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 60vh;
+            background: black;
+            margin-top:450px;
+
+             background-color: #1b2a3a;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding:30px;
+            width:100%;
+            
+            
+        }
+
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 0.5px solid transparent;
+            z-index: 2000;
+
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .header:hover::before {
+            left: 100%;
+        }
+
+        .logo {
+            color: #a9a9a9;
+            font-size: 30px;
+            text-decoration: none;
+            font-weight: 300;
+            font-family: myfont;
+            cursor: default;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            
+
+
+        }
+
+        .navbar a {
+            color: #fff;
+            font-size: 15px;
+            text-decoration: none;
+            margin-left: 35px;
+            transition: 0.5s;
+            font-family: myfont;
+        }
+
+        .navbar a:hover {
+            color: #39FF14;
+        }
+
+        .burger {
+            display: none;
+        }
+
+        /* BREAKPOINTS */
+        @media (max-width: 992px) {
+            .header {
+                padding: 1.25rem 4%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: block;
+                position: relative;
+                width: 30px;
+                height: 20px;
+                background: transparent;
+                cursor: pointer;
+                margin-top:1px;
+                margin-right:10px;
+                
+                
+            }
+
+            .burger input {
+                display: none;
+            }
+
+            .burger span {
+                display: block;
+                position: absolute;
+                height: 4px;
+                width: 100%;
+                background:#a9a9a9;
+                border-radius: 9px;
+                opacity: 1;
+                left: 0;
+                transform: rotate(0deg);
+                transition: .25s ease-in-out;
+            }
+
+            .burger span:nth-of-type(1) {
+                top: 0px;
+                transform-origin: left center;
+            }
+
+            .burger span:nth-of-type(2) {
+                top: 50%;
+                transform: translateY(-50%);
+                transform-origin: left center;
+            }
+
+            .burger span:nth-of-type(3) {
+                top: 100%;
+                transform-origin: left center;
+                transform: translateY(-50%);
+            }
+
+            .burger input:checked ~ span:nth-of-type(1) {
+                top: 0;
+                left: 5px;
+                transform: rotate(405deg);
+            }
+
+            .burger input:checked ~ span:nth-of-type(2) {
+                width: 0%;
+                opacity: 0;
+            }
+
+            .burger input:checked ~ span:nth-of-type(3) {
+                top: 28px;
+                left: 5px;
+                transform: rotate(-405deg);
+            }
+
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 0.5rem 4%;
+                display: flex;
+                flex-direction: column;
+                background: transparent;
+                z-index: 99;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-in-out;
+            }
+
+            .navbar.active {
+                max-height: 500px;
+
+
+            }
+
+            .navbar a {
+                display: block;
+                margin: 1rem 0;
+                width: 100%;
+                color:white;
+                text-align: center;
+                font-family:myfont;
+
+
+            }
+
+            .nav-bg {
+                position: fixed;
+                top: 79px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(30px);
+                z-index: 98;
+                display: none;
+
+            }
+
+            .nav-bg.active {
+                display: block;
+            }
+
+        }
+
+
+
+   .image-text {
+            font-family: 'myfont', sans-serif;
+            font-size: 35px;
+            margin-left: 30px;
+            background: url('/static/gradient8.jpg') repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+
+        }
+    .hero {
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size:cover;
+            backface-visibility: hidden;
+            height:800px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 100px 100px rgba(0, 0, 0, 0.9);
+            border: 0.2px solid black;
+            margin-top:20px;
+
+        }
+
+        .hero:after {
+            background-color:rgba(0, 0, 0, 0.7);
+            bottom: 0;
+            content: '';
+            left: -2000%;
+            position: absolute;
+            right: -2000%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .hero-container {
+            box-sizing: border-box;
+            height: auto;
+            padding: 30px 50px;
+            position: relative;
+            z-index: 2;
+            transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+            transition-duration: 1.2s;
+        }
+
+        .hero-container p {
+            color: white;
+            font-family:myfont;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .hero-button {
+             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(71, 81, 92, 1) 0%,
+    rgba(11, 21, 30, 1) 45%
+  );
+  color: rgb(255, 255, 255, 0.66);
+  transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+            font-size: 17px;
+            font-family:myfont;
+            float: left;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 25px;
+            padding: 20px 30px;
+            text-decoration: none;
+            border-radius:7px;
+            border: 2px solid grey;
+            width:150px;
+
+        }
+
+        .hero-title {
+            color:white;
+            font-family: myfont;
+            font-size: 5vw;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin: 5px 0;
+            margin-top:100px;
+            text-align: left;
+            width: 85%;
+        }
+
+        .main-content {
+            height: auto;
+            padding: 30px 50px;
+            position: relative;
+            width: 60%;
+        }
+
+
+
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translate3d(-12px, 0, 0);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .fadeInLeft {
+            animation-name: fadeInLeft;
+        }
+
+        .animate {
+            animation-duration: 0.75s;
+            animation-fill-mode: both;
+            animation-timing-function: cubic-bezier(0.2, 0.3, 0.25, 0.9);
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-800 {
+            animation-delay: 0.8s;
+        }
+        @media screen and (max-width: 480px) {
+            .hero {
+        height: 40vh;
+        background-position: center;
+        background-size: 500px;
+        margin-top:50px;
+        margin-bottom:50px;
+        width:110%;
+        border: 0.1px solid black;
+        box-shadow: 0 120px 50px rgba(0, 0, 0, 2);
+            }
+            .hero-container {
+                padding: 15px 20px;
+            }
+            .hero-title {
+                font-size: 7vw;
+                margin-top:50px;
+                
+            }
+            .hero-button {
+                padding: 10px 15px;
+                font-size: 12px;
+                width:80px;
+                border-radius:7px;
+                margin-top: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+   
+<header class="header">
+    <span1 style="font-family:myfont;margin-left:10px;font-size: 33px;color:#a9a9a9">MULTIVERSE</span1>
+    <!-- <span1 class="text-white" style="font-family:myfont;margin-left:-400px;font-size: 18px;margin-top:10px;">CLOTHING</span1> -->
+    <label for="burger" class="burger">
+        <input id="burger" type="checkbox">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="navbar">
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    {% if user.is_authenticated %}
+    <a href="#">Account</a>
+    {% endif %}
+    <a href="#">Products</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'credentials:logout' %}">Logout</a>
+    {% else %}
+        <a href="#" id="loginLink">Login</a>
+    {% endif %}
+
+</nav>
+</header>
+
+<section class="hero image-as-background" style="background-image: url('/static/x6.jpg');">
+    <div class="hero-container">
+        <h5 class="hero-title animate fadeInLeft delay-600">WE ARE LUCKY<br>WE EXIST ON <br> MULTIVERSE</h5>
+        <a href="{% url 'productapp:about' %}" class="hero-button animate fadeInLeft delay-800 text-center" title="Click to see more" style="text-decoration:none;">ABOUT</a>
+    </div>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+        $(window).on('scroll', function() {
+            var scrollTop = $(this).scrollTop();
+            var windowHeight = $(window).height();
+            var heroHeight = $('.hero').height();
+
+            // Calculate the opacity based on scroll position
+            var opacity = 1 - (scrollTop / heroHeight);
+
+            // Apply the opacity to the hero section
+            $('.hero').css('opacity', opacity);
+
+            // Optionally, you can apply a threshold to hide the image completely after a certain point
+            if (opacity <= 0) {
+                $('.hero').css('opacity', 0);
+            }
+        });
+
+</script>
+<script>
+    window.HeroFade_Object = {};
+    (function(window, $, that) {
+        that.init = function() {
+            that.cache();
+            if (that.meetsRequirements) {
+                that.bindEvents();
+            }
+        };
+        that.cache = function() {
+            that.$c = {
+                window: $(window),
+                heroSelector: $('.hero'),
+            };
+        };
+        that.meetsRequirements = function() {
+            return that.$c.heroSelector.length;
+        };
+        that.bindEvents = function() {
+            that.$c.window.on('load', that.doHero);
+        };
+        that.doHero = function() {
+            $(window).scroll(function() {
+                $(".hero").css("opacity", 1 - $(window).scrollTop() / $('.hero').height());
+            });
+        };
+        $(that.init);
+    })(window, jQuery, window.HeroFade_Object);
+</script>
+
+<div class="nav-bg"></div>
+<style>
+        body.blur-background::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 40px;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000; /* Ensure the form is above the blurred background */
+            display: none; /* Initially hidden */
+        }
+
+        .login {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form button {
+            margin-top: 25px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            border: none;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            font-size: 19px;
+            font-weight: bold;
+            color: white;
+            background: black;
+        }
+
+        .form label {
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        .form button:hover {
+            box-shadow: 2px 2px 12px white;
+        }
+
+        .input {
+            height: 30px;
+            outline: none;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 2px 2px 12px inset black;
+        }
+
+        .span:hover {
+            font-weight: bold;
+        }
+
+        .color {
+            color: white;
+        }
+
+        .align {
+            text-align: center;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Ensure the overlay is below the form but above the blurred background */
+            display: none; /* Initially hidden */
+        }
+
+        .messages {
+            margin-top: 10px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+<div class="overlay" id="overlay"></div>
+
+<!-- Login Form -->
+<form class="form" id="loginForm" action="{% url 'credentials:home' %}" method="post">
+    {% csrf_token %}
+    <div class="flex">
+        <div class="login color">Login</div>
+        <div class="messages" id="messages"></div>
+        <label class="color">Username :</label>
+        <input type="text" class="input" name="username" required>
+        <label class="color">Password :</label>
+        <input type="password" class="input" name="password" required>
+        <button type="submit">Log-in</button>
+        <br>
+        <div class="color align">Don't have account? <a href="{% url 'credentials:register' %}" class="span">Sign-Up</a></div>
+    </div>
+</form>
+
+<script>
+    const burger = document.querySelector('#burger');
+const navbar = document.querySelector('.navbar');
+const navbg = document.querySelector('.nav-bg');
+
+burger.addEventListener('click', () => {
+    navbar.classList.toggle('active');
+    navbg.classList.toggle('active');
+    document.body.classList.toggle('no-scroll');
+});
+
+    document.getElementById('loginLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        document.body.classList.add('blur-background', 'no-scroll');
+    });
+
+    document.getElementById('overlay').addEventListener('click', function() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.body.classList.remove('blur-background', 'no-scroll');
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messages = document.getElementById('messages');
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                messages.textContent = data.message;
+            }
+        });
+    });
+</script>
+
+
+
+
+<script>
+    const burger = document.querySelector('#burger');
+    const navbar = document.querySelector('.navbar');
+    const navbg = document.querySelector('.nav-bg');
+
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('active');
+        navbar.classList.toggle('active');
+        navbg.classList.toggle('active');
+    });
+</script>
+<div>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div style="z-index-4000;">
+<div class="carousel" data-flickity='{ "autoPlay": true, "prevNextButtons": false }' style="background:transparent;background-size:200px;">
+    <div class="carousel-cell" style="background-image: url(/static/darkfit14.jpg)"></div>
+    <div class="carousel-cell" style="background-image: url(/static/darkfit10.jpg)"></div>
+    <div class="carousel-cell" style="background-image: url(/static/darkfit13.jpg)"></div>
+    <div class="carousel-cell" style="background-image: url(/static/darkfit11.jpg); position: relative;">
+        <button class="carousel-btn">more...</button>
+    </div>
+</div>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+.carousel {
+    margin-top: -90px;
+    z-index: 10;
+}
+
+.carousel-cell {
+    width: 35%;
+    height: 600px;
+    margin-right: 10px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center center;
+}
+
+.carousel-cell:before {
+    display: block;
+    content: '';
+}
+
+.carousel-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-image: url('{% static 'gradient3.jpg' %}');
+    background-size: cover;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.carousel-btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .carousel {
+        margin-top: -50px;
+        z-index: 10;
+    }
+
+    .carousel-cell {
+        width: 60%;
+        height: 200px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    .carousel-btn {
+        bottom: 10px;
+        right: 10px;
+        width:50%;
+        font-size: .7em;
+        font-family: myfont;
+        color: #a9a9a9;
+    }
+}
+</style>
+
+<style>
+        @import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
+        @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+
+        body {
+            margin: 0;
+            background-color: black;
+        }
+
+        main {
+            width: min(1200px, 90vw);
+            margin: auto;
+        }
+
+        .swiper {
+            width: 100%;
+            height: var(--height);
+        }
+
+        .swiper-slide {
+            width: var(--width);
+            height: var(--height);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .card {
+            width: 100%;
+            height: 200px;
+            background: transparent;
+            border: 1px solid violet;
+            box-shadow: 2px 2px 15px white inset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card:hover {
+            box-shadow: 2px 2px 15px #07ff07 inset;
+        }
+
+        .card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        figure.snip1190 {
+            font-family: 'Raleway', Arial, sans-serif;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            margin: 8px;
+            min-width: 220px;
+            max-width: 310px;
+            max-height: 220px;
+            width: 100%;
+            background: #000000;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius:15px;
+        }
+
+        figure.snip1190 * {
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+        }
+
+        figure.snip1190 img {
+            opacity: 0.8;
+            width: 100%;
+            background-image:url(/static/galaxy2.jpg);
+        }
+
+        figure.snip1190 figcaption {
+            bottom: 0;
+            display: block;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        figure.snip1190 h2 {
+            font-weight: 400;
+            left: 5%;
+            
+            letter-spacing: -1px;
+            margin: 0 auto;
+            position: absolute;
+            text-transform: uppercase;
+            bottom: 15%;
+            transform: translateY(50%);
+        }
+
+        figure.snip1190 h2 span {
+            font-weight: 800;
+        }
+
+        figure.snip1190 p {
+            position: absolute;
+            bottom: 5%;
+            left: 10%;
+            margin: 0 auto;
+            opacity: 0;
+            font-size: 14px;
+            transform: translateY(-20%) scale(0.7);
+        }
+
+       
+
+        figure.snip1190 a {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: absolute;
+        }
+
+        figure.snip1190:hover img,
+        figure.snip1190.hover img {
+            opacity: 0.25;
+            transform: scale(1.1);
+        }
+
+        figure.snip1190:hover h2,
+        figure.snip1190.hover h2 {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        figure.snip1190:hover p,
+        figure.snip1190.hover p {
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }
+
+        figure.snip1190:hover .square:before,
+        figure.snip1190.hover .square:before {
+            width: 38%;
+        }
+
+        figure.snip1190:hover .square div:before,
+        figure.snip1190.hover .square div:before {
+            height: 38%;
+        }
+
+        figure.snip1190:hover .square:after,
+        figure.snip1190.hover .square:after {
+            width: 55%;
+        }
+
+        figure.snip1190:hover .square div:after,
+        figure.snip1190.hover .square div:after {
+            height: 55%;
+        }
+
+        .figure-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    
+    
+    
+
+    <h2 class="text-center" style="margin-top:40px;font-family:myfont;color:#a9a9a9">CATEGORIES</h2>
+    <main>
+        <div class="swiper" style="--width: 200px; --height: 300px; --quantity: 8;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="--position: 1">
+                    <div class="card">
+                        <img src="/static/img/anime2.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=anime" style="color:white;text-decoration: none;">
+                                <h3 style="font-family:myfont;font-size:1.5em;">ANIME</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 2">
+                    <div class="card">
+                        <img src="/static/img/simpsons.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=cartoon" style="color:white;text-decoration: none;">
+                            <h2 style="font-family:myfont;font-size:1.5em;">CARTOON</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 3">
+                    <div class="card">
+                        <img src="/static/img/spiderman.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=marvel" style="color:white;text-decoration: none;">
+                            <h2 style="font-family:myfont;font-size:1.5em;">MARVEL</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 4">
+                    <div class="card">
+                        <img src="/static/img/metalica.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=metal" style="color:white;text-decoration: none;">
+                            <h2 style="font-family:myfont;font-size:1.5em;">METAL</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 5">
+                    <div class="card">
+                        <img src="/static/img/abstract.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=abstract" style="color:white;text-decoration: none;">
+                            <h2 style="font-family:myfont;font-size:1.5em;">ABSTRACT</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 6">
+                    <div class="card">
+                        <img src="/static/img/weekend.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=pop" style="color:white;text-decoration: none;">
+                            <h2 style="font-family:myfont;font-size:1.5em;">POP</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 7">
+                    <div class="card">
+                        <img src="/static/img/minimal.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=minimals" style="color:white;text-decoration: none;">
+                                <h2 style="font-family:myfont;font-size:1.5em;">MINIMALS</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" style="--position: 8">
+                    <div class="card">
+                        <img src="/static/img/racing.jpg" alt="">
+                        <div class="overlay">
+                            <a href="{% url 'productapp:allproducts' %}?tag=racing" style="color:white;text-decoration: none;">
+                                <h2 style="font-family:myfont;font-size:1.5em;">RACING</h2>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="text-center" style="margin-top:20px;font-family: myfont;color:#a9a9a9">COLLECTIONS</h1>
+    <div class="flex-container" style="margin-top:20px;margin-bottom:40px;">
+        <a href="{% url 'productapp:shop' %}">
+        <figure class="snip1361">
+            <img src="/static/storproduct2.jpg" alt="sample45" />
+            <figcaption>
+                <h3 class="text-white" >STORE ITEMS</h3>
+            </figcaption>
+            
+        </figure>
+        </a>
+        <figure class="snip1361">
+            <img src="/static/storef.jpg" alt="sample99" />
+            <figcaption>
+                <h3 class="text-white">TRENDING</h3>
+            </figcaption>
+            <a href="{% url 'productapp:shop' %}?category=trending"></a>
+        </figure>
+        
+        <figure class="snip1361">
+            <img src="/static/men104.jpg" alt="sample99" />
+            <figcaption>
+                <h3 class="text-white">MENS</h3>
+            </figcaption>
+            <a href="{% url 'productapp:shop' %}?gen=men"></a>
+        </figure>
+        <figure class="snip1361">
+            <img src="/static/women1.jpg" alt="sample99" />
+            <figcaption>
+                <h3 class="text-white">WOMENS</h3>
+            </figcaption>
+            <a href="{% url 'productapp:shop' %}?gen=women"></a>
+        </figure>
+        
+        
+        
+    </div>
+    <style>
+         @import url(https://fonts.googleapis.com/css?family=Oswald);
+        @import url(https://fonts.googleapis.com/css?family=Quattrocento);
+
+        .snip1361 {
+            font-family: 'Quattrocento', Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+            min-width: 230px;
+            width:250px;
+            max-width: 315px;
+            height:300px;
+            color: #141414;
+            text-align: left;
+            line-height: 1.4em;
+            font-size: 16px;
+            border: 2px solid #490257;
+            box-shadow: 2px 2px 15px #B0C4DE inset;
+            border-radius: 10px;
+        }
+
+        .snip1361 * {
+            box-sizing: border-box;
+            transition: all 0.35s ease;
+        }
+
+        .snip1361 img {
+            width: 100%;
+            height:350px;
+            vertical-align: top;
+            background-image: url(/static/gradient3.jpg);
+        }
+
+        .snip1361 figcaption {
+            position: absolute;
+            top: calc(77%);
+            width: 100%;
+            background-color: transparent;
+            padding: 15px 25px 65px;
+            font-family:myfont;
+        }
+
+        .snip1361 h3,
+        .snip1361 p {
+            margin: 0 0 10px;
+        }
+
+        .snip1361 h3 {
+            font-weight: 300;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            font-family: myfont;
+            text-transform: uppercase;
+            margin-top:20px;
+
+        }
+
+        .snip1361 a {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 575.98px) {
+            .flex-container {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                justify-content: start;
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            }
+            .flex-container::-webkit-scrollbar {
+                display: none; /* Hide scrollbar for WebKit-based browsers */
+            }
+
+            .snip1361 {
+                flex: 0 0 auto;
+                width: 260px;
+                height:300px;
+                margin-right: 1px;
+            }
+            .snip1361 img {
+            width: 100%;
+            height:380px;
+            position:cover;
+            vertical-align: top;
+            margin-top:-40px;
+        }
+        .snip1361 h3 {
+            font-size: 1.2em;
+
+
+
+        }
+        }
+    </style>
+
+        <div class="figure-container">
+            <figure class="snip1190">
+                <img src="/static/newlog.jpg" alt="Sample" style=" background-color: #161127; background-image:
+        radial-gradient(at 47% 33%, hsl(162.06, 77%, 23%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(216.43, 48%, 11%) 0, transparent 55%);}">
+                <figcaption>
+                    
+                    <a href="{% url 'productapp:allproducts' %}" style="color:white;text-decoration: none;">
+                        <h2>OUR<span> DESIGNS</span></h2>
+                    </a>
+                    <p>Our Collections.</p>
+                </figcaption>
+            </figure>
+            
+            <figure class="snip1190">
+                <img src="/static/thriftcc.png" alt="Sample">
+                <figcaption>
+                   
+                    <a href="{% url 'productapp:shop' %}?category=thrifted"  style="color:white;text-decoration: none;"><h2 >THRIFTED<span> CLOTHS</span></h2></a>
+                    <p>Thrifted Collection.</p>
+                </figcaption>
+            </figure>
+            
+            <figure class="snip1190">
+                <img src="/static/custom.png" alt="Sample">
+                <figcaption>
+                    
+                    <a href="{% url 'custom:uploaddesign' %}"><h2 style="color:white;">CUSTOM<span> DESIGN</span></h2></a>
+                    <p style="color:white;">Create Your Product</p>
+                </figcaption>
+            </figure>
+        </div>
+        <div class="figure-container">
+            <figure class="snip1190">
+                <img src="/static/cart4.png" alt="Sample" style="margin-bottom: 40px;">
+                <figcaption>
+                   
+                    <a href="{% url 'productapp:view_cart' %}" style="color:white;text-decoration: none;">
+                        <h2>YOUR<span> CART</span></h2>
+                    </a>
+                    <p>Your Cart items.</p>
+                </figcaption>
+            </figure>
+            
+            <figure class="snip1190">
+                <img src="/static/profile2.png" alt="Sample">
+                <figcaption>
+                    
+                    <a href="{% url 'productapp:account' %}"  style="color:white;text-decoration: none;"><h2 >YOUR<span> ACCOUNT</span></h2></a>
+                    <p>Account Settings.</p>
+                </figcaption>
+            </figure>
+            
+            <figure class="snip1190">
+                <img src="/static/heart2.png" alt="Sample" style="margin-bottom: 20px;">
+                <figcaption>
+                    
+                    <a href="{% url 'productapp:account' %}"><h2 style="color:white;">CUSTOM<span> DESIGN</span></h2></a>
+                    <p style="color:white;">Create Your Product</p>
+                </figcaption>
+            </figure>
+        </div>
+           
+
+    </main>
+    
+
+
+
+    
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const swiper = new Swiper('.swiper', {
+                loop: true,
+                slidesPerView: 'auto',
+                spaceBetween: 10,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+        });
+    </script>
+    <style>
+        
+        .footer {
+          
+        background: linear-gradient(
+          rgba(0, 0, 0, 0) 5%,
+          rgba(0, 0, 0, 0.3) 20%,
+          rgba(0, 0, 0, 0.6) 30%,
+          rgba(0, 0, 0, 0.8) 40%,
+          rgba(0, 0, 0, 1) 50%,
+          rgb(0, 0, 0)
+        );
+        z-index: -7;
+          color: white;
+          padding: 2rem;
+          text-align: center;
+          bottom:0;
+          width:96.5vw;
+          margin-top: 100px;
+          margin-bottom: -60px;
+          
+          
+          
+      }
+      
+      .footer-content {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+      }
+      
+      .footer-section {
+          flex: 1;
+          margin: 1rem;
+      }
+      
+      .footer-section h2 {
+          margin-bottom: 1rem;
+          font-size: 20px;
+          color: #f4f4f4;
+      }
+      
+      .footer-section p,
+      .footer-section ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+      }
+      
+      .footer-section p {
+          font-size: 16px;
+      }
+      
+      .footer-section ul {
+          display: flex;
+          flex-direction: column;
+      }
+      
+      .footer-section ul li {
+          margin-bottom: 0.5rem;
+      }
+      
+      .footer-section ul li a {
+          color: #f4f4f4;
+          text-decoration: none;
+          transition: color 0.3s;
+      }
+      
+      .footer-section ul li a:hover {
+          color: #1e90ff;
+      }
+      
+      .footer-section .social {
+          display: flex;
+          justify-content: center;
+      }
+      
+      .footer-section .social-icon {
+          display: inline-block;
+          margin: 0 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 50%;
+          background-color: #555;
+          color: white;
+          text-decoration: none;
+          font-size: 18px;
+          transition: background-color 0.3s, color 0.3s;
+      }
+      
+      .footer-section .social-icon:hover {
+          background-color: #1e90ff;
+          color: white;
+      }
+      
+      .footer-bottom {
+          border-top: 1px solid #444;
+          padding-top: 1rem;
+          font-size: 14px;
+          margin-bottom: 4rem;
+          margin-right: 40px;
+      }
+      </style>
+      <footer class="footer">
+        <div class="footer-content">
+            
+            <div class="footer-section links">
+                <h2 style="font-family:myfont;">multiverseclothing</h2>
+                <img src="/static/mmm.png" style="width:200px;margin-top: -40px;">
+            </div>
+            <div class="footer-section contact">
+                <h2 style="font-family: myfont;">Quick Links</h2>
+                <p><a href="#home" style="font-family:myfont;color:white;">Home</a></p>
+                <p><a href="#home" style="font-family:myfont;color:white;">Designs</a></p>
+                <p><a href="#home" style="font-family:myfont;color:white;">About</a></p>
+                <p><a href="#home" style="font-family:myfont;color:white;">Top</a></p>
+                                                                                     
+            </div>
+            <div class="footer-section social">
+              <h2 style="font-family:myfont;">Connect Us</h2>
+              <div class="social">
+                
+                <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+                <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+                <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+              </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Multiverse clothing. All Rights Reserved.</p>
+        </div>
+      </footer>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+{% load static %}
+{% load color_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+
+        body {
+            background-color: black;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+            padding: 100px;
+        }
+
+        .product-detail {
+             backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            padding: 30px 100px;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .color-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 8px;
+            border: 2px solid #fff;
+        }
+
+        .color-container, .size-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .color-label, .size-label {
+            font-weight: bold;
+        }
+
+        .size-badge {
+            background: #eee;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 15px;
+            gap: 10px;
+            background-color: #691;
+            outline: 3px #181717 solid;
+            outline-offset: -3px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 400ms;
+        }
+
+        .button .text {
+            color: white;
+            font-weight: 700;
+            font-size: 1em;
+            transition: 400ms;
+            margin-top: 20px;
+        }
+
+        .button svg path {
+            transition: 400ms;
+        }
+
+        .button:hover {
+            background-color: white;
+        }
+
+        .button:hover .text {
+            color: white;
+        }
+
+        .button:hover svg path {
+            fill: #181717;
+        }
+
+        .additional-info {
+             backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            color: white;
+            margin-top: 30px;
+
+        }
+
+        .additional-info ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-left: 120px;
+            margin-top:30px;
+        }
+
+        .additional-info ul li {
+            padding: 5px 15px;
+            flex: 0 0 50%; /* Two items per row */
+             margin-top:20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+             padding:20px;
+             }
+            .product-detail {
+                padding: 20px;
+            }
+
+            .product-detail h1 {
+                font-size: 2rem;
+            }
+
+            .button {
+                font-size: 1rem;
+                padding: 8px 16px;
+                margin-right:15px;
+            }
+
+            .additional-info ul li {
+                flex: 0 0 100%; /* One item per row on small screens */
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top:30px;
+                margin-right:120px;
+
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 product-detail">
+                <div class="text-center">
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid rounded mb-4">
+                    <h1 class="mb-3 text-white" style="font-family: myfont;">{{ product.title }}</h1>
+                    <p><strong>Product ID:</strong> {{ product.product_id }}</p>
+                    <p><strong>Price:</strong> Rs {{ product.price }}</p>
+                    <p><strong>Category:</strong> {{ product.tag }}</p>
+                    <!-- Buy Now Button -->
+                    {% if user.is_authenticated %}
+                    <div class="button-container">
+                        <button class="button" data-toggle="modal" data-target="#buyNowModal" style="margin-left:20px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:170px;height:50px;border-radius:10px;">
+
+                            <p class="text">Buy Now</p>
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="button-container">
+                        <button class="button" style="margin-left:15px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:200px;height:50px;border-radius:10px;">
+
+                            <p class="text">Login To Buy</p>
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+
+    <!-- Modal for Buy Now -->
+    <div class="modal fade" id="buyNowModal" tabindex="-1" role="dialog" aria-labelledby="buyNowModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="backdrop-filter: blur(11px) saturate(180%);-webkit-backdrop-filter: blur(11px) saturate(180%);background-color: rgba(17, 25, 40, 0.75); border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);border-radius:20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="buyNowModalLabel" style="font-family:myfont;">Buy Now</h5>
+                </div>
+                <form method="POST" action="{% url 'productapp:product_detail' product.id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label style="color:white;font-family:myfont;font-size:15px;">SELECT COLOR:</label>
+                            <div class="color-buttons">
+                                {% for color, code in color_codes %}
+                                    <button type="button" class="btn color-button" style="border-radius:15px;border-color:black;background-color: {{ code }}; color: {{ code|text_color }}; margin: 5px;" data-color="{{ color }}">
+                                        {{ color }}
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" name="color" id="selectedColor">
+                        </div>
+                        <div class="form-group">
+                            <label style="color:white;font-family:myfont;font-size:15px;">SELECT SIZE:</label>
+                            <div class="size-buttons">
+                                {% for size in sizes %}
+                                    <button type="button" class="btn btn-outline-secondary size-button" style="margin: 5px;border-radius:15px;border-color:black;" data-size="{{ size }}">{{ size }}</button>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" name="size" id="selectedSize">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background:black;border-radius:10px;color:white;">Close</button>
+                        <button type="submit" class="btn btn-success" style="background:black;border-radius:10px;">Proceed to Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Handle color button click
+            $('.color-button').click(function(){
+                $('.color-button').removeClass('btn-primary');
+                $(this).addClass('btn-primary');
+                $('#selectedColor').val($(this).data('color'));
+            });
+
+            // Handle size button click
+            $('.size-button').click(function(){
+                $('.size-button').removeClass('btn-primary');
+                $(this).addClass('btn-primary');
+                $('#selectedSize').val($(this).data('size'));
+            });
+
+            // Ensure form submission only if both color and size are selected
+            $('form').submit(function(e){
+                if($('#selectedColor').val() === '' || $('#selectedSize').val() === '') {
+                    e.preventDefault();
+                    alert('Please select both color and size.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

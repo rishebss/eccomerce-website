@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Shop</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            background: #f3f4f6;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+
+        h2 {
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+
+        .form-control {
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #357ab8;
+            border-color: #357ab8;
+        }
+
+        .custom-file-input:lang(en)~.custom-file-label::after {
+            content: "Browse";
+        }
+
+        .custom-file-label::after {
+            content: "Browse";
+        }
+
+        .custom-file-input:focus~.custom-file-label {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">Upload Shop</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_photo1">Photo 1</label>
+            {{ form.photo1 }}
+        </div>
+        <div class="form-group">
+            <label for="id_photo2">Photo 2</label>
+            {{ form.photo2 }}
+        </div>
+        <div class="form-group">
+            <label for="id_photo3">Photo 3</label>
+            {{ form.photo3 }}
+        </div>
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="id_product_id">Product ID</label>
+            {{ form.product_id }}
+        </div>
+        <div class="form-group">
+            <label for="id_price">Price</label>
+            {{ form.price }}
+        </div>
+        <div class="form-group">
+            <label for="id_size">Size</label>
+            {{ form.size }}
+        </div>
+        <div class="form-group">
+            <label for="id_color">Color</label>
+            {{ form.color }}
+        </div>
+        <div class="form-group">
+            <label for="design">Design:</label>
+            <input type="text" id="design" name="design" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="fit">Fit:</label>
+            <input type="text" id="fit" name="fit" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="occasion">Occasion:</label>
+            <input type="text" id="occasion" name="occasion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="sleeve">Sleeve:</label>
+            <input type="text" id="sleeve" name="sleeve" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="neck">Neck:</label>
+            <input type="text" id="neck" name="neck" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="wash_care">Wash Care:</label>
+            <input type="text" id="wash_care" name="wash_care" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="cat">Select Category:</label>
+            <input type="hidden" name="cat" id="cat" value="">
+            <button type="button" class="btn btn-secondary" onclick="setCategory('thrifted')">Thrifted</button>
+            <button type="button" class="btn btn-secondary" onclick="setCategory('trending')">Trending</button>
+        </div>
+        <div class="form-group">
+            <label for="cat">Sex:</label>
+            <input type="hidden" name="gen" id="gen" value="">
+            <button type="button" class="btn btn-secondary" onclick="setGender('men')">Mens</button>
+            <button type="button" class="btn btn-secondary" onclick="setGender('women')">Womens</button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    
+</div>
+<script>
+    function setCategory(value) {
+        document.getElementById('cat').value = value;
+    }
+    function setGender(value) {
+        document.getElementById('gen').value = value;
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

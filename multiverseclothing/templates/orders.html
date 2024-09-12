@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000;
+            background-image:
+                radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+                radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: "IBM Plex Sans";
+            font-weight: 300;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #d5d5d5;
+            font-size: calc(0.3 * var(--m));
+        }
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+        .order-card {
+            background-color: #171732;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .order-header {
+            border-bottom: 2px solid #F37254;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .order-header h3 {
+            font-family: myfont;
+            color: #F37254;
+        }
+        .order-details p {
+            font-family: myfont;
+            color: #a9a9a9;
+            margin: 5px 0;
+        }
+        .order-footer {
+            text-align: right;
+            margin-top: 15px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" style="font-family: myfont;">My Orders</h1>
+        
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <h3>Order ID: {{ order.id }}</h3>
+                <h3>Status: {{ order.paid|yesno:"Paid,Pending" }}</h3>
+            </div>
+            <div class="order-details">
+                <p><strong>Product Name:</strong> {{ order.product_name }}</p>
+                <p><strong>Color:</strong> {{ order.color }}</p>
+                <p><strong>Size:</strong> {{ order.size }}</p>
+                <p><strong>Amount:</strong> Rs {{ order.amount }}</p>
+                <br>
+                <p>Payment ID:</p><h6>{{ order.payment_id }}</h6>
+            </div>
+            <div class="order-footer">
+                
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">You have no orders yet.</p>
+        {% endfor %}
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

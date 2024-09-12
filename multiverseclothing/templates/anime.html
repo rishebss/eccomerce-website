@@ -1,0 +1,44 @@
+<!-- anime_products.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Products</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-card {
+            margin: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product-card-body {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center my-4">Anime Products</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        <div class="product-card-body">
+                            <h5 class="product-title">{{ product.title }}</h5>
+                            <p class="product-id">ID: {{ product.product_id }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

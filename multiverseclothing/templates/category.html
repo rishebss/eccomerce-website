@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ tag|title }} Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<!--    <h1>{{ tag|title }} Products</h1>-->
+<!--    <div class="product-list">-->
+<!--        {% for product in products %}-->
+<!--        <div class="product-card">-->
+<!--            <img src="{{ product.image.url }}" alt="{{ product.title }}">-->
+<!--            <h2>{{ product.title }}</h2>-->
+<!--            <p>Product ID: {{ product.product_id }}</p>-->
+<!--            <p>Tag: {{ product.tag }}</p>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<h1 class="text-center">COLLECTIONS</h1>
+    <ul class="product-list">
+        {% for product in products %}
+        <li class="product-card">
+            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            <a href="{% url 'productapp:details' product.product_id %}" style="color:white;">
+            <figcaption>
+
+                <h3>{{ product.title }}</h3>
+                <p>Product ID: {{ product.product_id }}</p>
+                <p>Tag: {{ product.tag }}</p>
+
+            </figcaption>
+            </a>
+
+
+        </li>
+        {% endfor %}
+    </ul>
+ <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,700');
+
+        body {
+            background-color: black;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 2.5%;
+            color: white;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .product-card {
+            font-family: 'Raleway', Arial, sans-serif;
+            position: relative;
+            margin: 10px;
+            flex: 0 0 calc(33.33% - 20px); /* 3 cards per row */
+            max-width: calc(33.33% - 20px);
+            color: #ffffff;
+            text-align: left;
+            background-color: #000000;
+            font-size: 16px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 400px; /* Fixed height */
+            object-fit: cover;
+            transition: opacity 0.4s ease-in;
+        }
+
+        .product-card figcaption {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            padding: 20px 30px;
+            background: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.4s ease-in;
+        }
+
+        .product-card h3 {
+            margin: 0 0 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .product-card p {
+            font-size: 0.8em;
+            font-weight: 500;
+            margin: 0 0 15px;
+            line-height: 1.5em;
+        }
+
+        .product-card a {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .product-card:hover img {
+            opacity: 0.4;
+        }
+
+        .product-card:hover figcaption {
+            opacity: 1;
+        }
+      @media (max-width: 1200px) {
+            .product-card {
+                flex: 0 0 calc(50% - 20px); /* 2 cards per row */
+                max-width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                flex: 0 0 calc(100% - 20px); /* 1 card per row */
+                max-width: calc(100% - 20px);
+            }
+        }
+    </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

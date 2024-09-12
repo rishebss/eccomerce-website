@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Requests</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #1c1c1c;
+            color: #fff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin: 0;
+            padding: 10px;
+            background: rgba(24, 20, 20, 0.9);
+            border-radius: 10px;
+        }
+
+        .card {
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            color: #fff;
+            font-size: 1.8em;
+            margin: 0 0 10px;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background: #03f40f;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .button:hover {
+            background: #028c10;
+            box-shadow: 0 0 5px #028c10, 0 0 25px #028c10, 0 0 50px #028c10;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .card img {
+                max-width: 90%;
+            }
+
+            .card p {
+                font-size: 1em;
+            }
+
+            .button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Design Requests</h1>
+        </div>
+
+        {% for design in designs %}
+        <div class="card">
+            <img src="{{ design.design.url }}" alt="Design Image">
+            <h2>Design Details</h2>
+            <p><strong>Size:</strong> {{ design.size }}</p>
+            <p><strong>Color:</strong> {{ design.color }}</p>
+            <p><strong>Print:</strong> {{ design.print }}</p>
+            <p><strong>Fit:</strong> {{ design.fit }}</p><br>
+            <p><strong>Uploaded by:</strong> {{ design.user.username }} ({{ design.user.email }})</p>
+        </div>
+        {% empty %}
+        <p style="text-align: center; color: #ccc;">No designs found.</p>
+        {% endfor %}
+
+        <a href="{% url 'custom:uploaddesign' %}" class="button">Back to dashboard</a>
+    </div>
+</body>
+</html>
+

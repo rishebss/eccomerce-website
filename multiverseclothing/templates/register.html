@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Glassmorphism login Form Tutorial in html css</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+
+    background-color: black;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+}
+@font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 720px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 20px 25px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+@media (max-width: 768px) {
+    body {
+        background-color: black;
+        background-image: radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+                          radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+    }
+
+    .background {
+        width: 100%;
+        height: 400px;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+    }
+
+    .background .shape {
+        height: 150px;
+        width: 150px;
+    }
+
+    form {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        box-shadow: none;
+    }
+
+    form h3 {
+        font-size: 28px;
+    }
+
+    input {
+        height: 45px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 0;
+        font-size: 16px;
+    }
+
+    .social div {
+        width: 120px;
+    }
+
+    .social {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .social div {
+        margin: 5px 0;
+    }
+
+    .social .fb {
+        margin-left: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form class="form" action="{% url 'credentials:register' %}" method="post">
+        {% csrf_token %}
+        <h3>SIGN UP</h3>
+        {% if messages %}
+                    <div>
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+        <label for="username">Username</label>
+        <input required="" type="text" placeholder="Username" id="username" name="username">
+
+        <label for="username">Email</label>
+        <input required="" type="email" placeholder="Email or Phone" id="email" name="email">
+
+        <label for="password">Password</label>
+        <input required="" type="password" placeholder="Password" id="password" name="password">
+
+        <label for="password1">Confirm Password</label>
+        <input required="" type="password" placeholder="Password" id="password1" name="password1">
+
+        <button>CREATE</button>
+        <div class="social">
+            <div class="go"><a href="{% url 'productapp:about' %}" style="text-decoration:none;"><i class="fa-solid fa-question"></i>  ABOUT</a></div>
+          <div class="fb"><a href="https://www.instagram.com/multiverse_clothing?igsh=MTU5anlnbzZpa3B3ag==" style="text-decoration:none;"><i class="fa-brands fa-instagram"></i>INSTAGRAM</a></div>
+        </div>
+    </form>
+
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
