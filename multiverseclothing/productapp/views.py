@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import json
 
-from .models import Product,Magazine,Shop,Cart,OrderCart,Like
+from .models import Product,Magazine,Shop,Cart,OrderCart,Like,OrderDesign
 from django.contrib.auth.decorators import login_required
 from .models import Selection
 from django.conf import settings
@@ -117,6 +117,7 @@ def category_view(request, tag):
 
 def details(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
+    
     liked_products = Like.objects.filter(user=request.user).values_list('product', flat=True)
     colors = product.color.split(',')
     sizes = product.size.split(',')
@@ -158,10 +159,7 @@ def product_detail(request, product_id):
 
     return render(request, 'product_detail.html', {'product': product})
 
-def purchase(request, selection_id):
-    selection = get_object_or_404(Selection, id=selection_id)
-    user_profile = UserProfile.objects.filter(user=request.user).first()
-    return render(request, 'purchase.html', {'selection': selection, 'user_profile': user_profile})
+
 
 
 def save_details(request):
@@ -349,6 +347,32 @@ def remove_from_cart(request, item_id):
     return redirect('productapp:view_cart')
 
 
+def purchase(request, selection_id):
+    selection = get_object_or_404(Selection, id=selection_id)
+    user_profile = UserProfile.objects.filter(user=request.user).first()
+
+    if request.method== "POST":
+        amount_str=request.POST.get("amount")
+
+        if amount_str is None:
+            print("Amount is missing from POST data")
+            return HttpResponseBadRequest("Amount is missing")
+
+        try:
+            amount = int(amount_str) * 100
+        except ValueError:
+            print("Invalid amount format")
+            return HttpResponseBadRequest("Invalid amount format")
+        client = razorpay.Client(auth=('rzp_test_dTWp25pBQ5jW81', 'Sg6ymJfWNf4atGBsqXhuaALE'))
+        payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
+
+        design=OrderDesign(user=request.user,info=user_profile,design_name=selection.product.title,amount=amount_str,designcolor=selection.selected_color,designsize=selection.selected_size,payment_id=payment['id'])
+        design.save()
+
+        return render(request, "purchase.html", {'payment': payment})
+
+    return render(request, 'purchase.html', {'selection': selection, 'user_profile': user_profile})
+
 @never_cache
 def checkout_summary(request):
     cart_items = Cart.objects.filter(user=request.user)
@@ -421,25 +445,21 @@ def success(request):
     response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
     return response
 
-# def success(request):
-#     if request.method == "POST":
-#         a = request.POST
-#         payment_id=""
-#         for key, val in a.items():
-#             if key == "razorpay_order_id":
-#                 payment_id = val
-#                 break
-#         user = OrderCart.objects.filter(payment_id=payment_id).first()
-#         user.paid = True
-#         user.save()
+@csrf_exempt
+def designsuccess(request):
+    if request.method == "POST":
+        a = request.POST
+        payment_id=""
+        for key,val in a.items():
+            if key == "razorpay_order_id":
+                payment_id=val
+                break
+        user = OrderDesign.objects.filter(payment_id=payment_id).first()
+        user.paid = True
+        user.save()
+    return render(request, "designsuccess.html")
 
-        
 
-#     response = render(request, "success.html")
-#     response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-#     response['Pragma'] = 'no-cache'
-#     response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
-#     return response
 
 def userorders(request):
     orders = OrderCart.objects.filter(user=request.user)

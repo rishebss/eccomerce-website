@@ -93,11 +93,20 @@ class OrderCart(models.Model):
      def __str__(self):
          return f"{self.user.username} - {self.amount}"
 
+class OrderDesign(models.Model):
+     user=models.ForeignKey(User,on_delete=models.CASCADE)
+     info=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+     design_name = models.CharField(max_length=255)
+     designcolor = models.CharField(max_length=225)
+     designsize = models.CharField(max_length=225)
+     amount = models.CharField(max_length=10)
+     payment_id = models.CharField(max_length=100)
+     paid = models.BooleanField(default=False)
 
-# class OrderItem(models.Model):
-#     order = models.ForeignKey(OrderCart, related_name='items', on_delete=models.CASCADE)
-#     product = models.ForeignKey(Shop, on_delete=models.CASCADE)
-#     quantity = models.IntegerField(default=1)
+     def __str__(self):
+         return f"{self.user.username} - {self.amount}"
+
+
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

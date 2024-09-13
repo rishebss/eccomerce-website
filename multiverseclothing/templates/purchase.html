@@ -58,8 +58,14 @@
             <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
     </div>
+    {% if payment %}
+         <img src="/static/razorpay.svg" style="width:300px;margin-bottom:-30px;margin-top:50px;">
+         {% endif %}
     <div class="container mt-5">
+        
+         {% if not payment %}
         <h1 class="text-center mb-4" style="font-family: myfont;">Product Summary</h1>
+        
         <ul class="list-group">
             <li class="list-group-item" style="background-color: #171732;border-radius:10px;">
                 <div class="d-flex w-100 justify-content-between">
@@ -68,11 +74,16 @@
                 </div>
                 <p class="mb-1" style="font-family: myfont;">color : {{ selection.selected_color }}</p>
             </li>
+            <input type="hidden" name="design_name" value="{{ selection.product.title }}">
+        <input type="hidden" name="designcolor" value="{{ selection.selected_color }}">
+        <input type="hidden" name="designsize" value="{{ selection.selected_size }}">
+        <input type="hidden" name="amount" value="{{ selection.product.price }}">
             <br>
 
         </ul>
-
+        
         <h3 class="text-right mt-4" style="font-family: myfont;">Rs {{ selection.product.price }}</h3>
+        
         <div class="text-center mt-4">
             {% if user_profile %}
             <button type="button" class="btn btn-primary" id="shippingDetailsButton" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">shipping details</button>
@@ -80,8 +91,13 @@
             <button type="button" class="btn btn-primary" id="shippingDetailsButton" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;">add shipping details</button>
             {% endif %}
             {% if user_profile %}
-            <form method="post" action="">
+            {% endif %}
+            <form method="post" action="{% url 'productapp:purchase' selection_id=selection.id %}">
                 {% csrf_token %}
+                <input type="hidden" name="design_name" value="{{ selection.product.title }}">
+        <input type="hidden" name="designcolor" value="{{ selection.selected_color }}">
+        <input type="hidden" name="designsize" value="{{ selection.selected_size }}">
+        <input type="hidden" name="amount" value="{{ selection.product.price }}">
                 <button type="submit" class="btn btn-primary" style="font-family: myfont;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:300px;height:40px;border-radius:10px;margin-top:10px;">proceed to pay</button>
             </form>
             {% endif %}
@@ -134,6 +150,28 @@
             </div>
         </div>
      </div>
+
+     {% if payment %}
+    <form action="{% url 'productapp:designsuccess' %}" method="POST" style="">
+        <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="rzp_test_dTWp25pBQ5jW81"
+        data-amount="{{ payment.amount }}"
+        data-currency="INR"
+        data-order_id="{{ payment.id }}"
+        data-buttontext="Pay Now"
+        data-name="Multiverse Corp"
+        data-description="Test transaction"
+        data-image="https://example.com/your_logo.jpg"
+        data-prefill.name="Gaurav Kumar"
+        data-prefill.email="gaurav.kumar@example.com"
+        data-prefill.contact="9999999999"
+        data-theme.color="#F37254">
+        </script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+    {% endif %}
+
 
      <script>
         document.addEventListener("DOMContentLoaded", function() {

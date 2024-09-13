@@ -192,41 +192,42 @@
             <div class="col-md-6 product-detail">
                 <div class="text-center">
                     <img src="{{ product.image.url }}" alt="{{ product.title }}" class="img-fluid rounded mb-4" style="height:300px;">
-                    
                     <h1 class="mb-3 text-white" style="font-family: myfont;">{{ product.title }}</h1>
                     <p><strong>Product ID:</strong> {{ product.product_id }}</p>
                     <p><strong>Price:</strong> Rs {{ product.price }}</p>
                     <p><strong>Category:</strong> {{ product.tag }}</p>
-                    <!-- Buy Now Button -->
+                    
                     {% if user.is_authenticated %}
                     <div class="button-container">
                         <button class="button" data-toggle="modal" data-target="#buyNowModal" style="margin-left:20px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:170px;height:50px;border-radius:10px;">
-
                             <p class="text">Buy Now</p>
                         </button>
+    
+                        <!-- Like button -->
                         <span class="like-btn" data-product-id="{{ product.id }}" style="margin-left:10px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:50px;height:45px;border-radius:10px;margin-top:3px;">
-                            <i class="fa-heart {% if product in liked_products %}fas liked{% else %}far{% endif %}"></i>
+                            <!-- Using 'text-danger' class to make the icon red if the product is liked -->
+                            <i class="fa-heart {% if product.id in liked_products %}fas liked text-danger{% else %}far{% endif %}"></i>
                         </span>
                     </div>
                     {% else %}
                     <div class="button-container">
                         <button class="button" style="margin-left:15px;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:200px;height:50px;border-radius:10px;">
-
                             <p class="text">Login To Buy</p>
                         </button>
-                        
                     </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.like-btn').forEach(function(button) {
                 button.addEventListener('click', function() {
                     const productId = this.getAttribute('data-product-id');
                     const heartIcon = this.querySelector('i');
-        
+    
                     fetch("{% url 'productapp:toggle_like' %}", {
                         method: 'POST',
                         headers: {
@@ -238,10 +239,12 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.liked) {
+                            // Update the icon to indicate the product is liked
                             heartIcon.classList.remove('far');
-                            heartIcon.classList.add('fas', 'liked');
+                            heartIcon.classList.add('fas', 'liked', 'text-danger');
                         } else {
-                            heartIcon.classList.remove('fas', 'liked');
+                            // Update the icon to indicate the product is unliked
+                            heartIcon.classList.remove('fas', 'liked', 'text-danger');
                             heartIcon.classList.add('far');
                         }
                     })
@@ -249,8 +252,8 @@
                 });
             });
         });
-        
-        </script>
+    </script>
+    
         
 
     <!-- Modal for Buy Now -->

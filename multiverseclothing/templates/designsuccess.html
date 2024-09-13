@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    </head>
+    <body>
+    <style>
+        @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
+        body{
+        background-color: black;
+    background-image:
+        radial-gradient(at 47% 33%, hsl(259.47, 46%, 18%) 0, transparent 59%),
+        radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+
+<div class="text-center">
+    <img src="/static/checkmark.png" style="height:300px;margin-top:200px;margin-bottom:-40px;">
+    <br>
+    <h4 class="mt-4 mb-3 text-white" style="font-family:myfont;">THANK YOU YOUR PAYMENT HAS BEEN RECIEVED</h4>
+   <a href="{% url 'credentials:home' %}"> <button type="submit" class="submit-btn text-white" style="width:15rem;background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;height:50px;border-radius:10px;">CONTINUE SHOPPING</button></a></div>
+
+
+</div>
+
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
