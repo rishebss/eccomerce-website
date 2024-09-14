@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Oswald ExtraLight;
+            background-image:url('{% static "img/bg2.jpg" %}');
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%; /* Adjusted width for responsiveness */
+            max-width: 400px; /* Added maximum width */
+            margin: 100px auto; /* Adjust the margin for vertical alignment */
+            left:100px;
+            background-color: transparent;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .steel-text {
+            color: transparent;
+            background: linear-gradient(to right, #999 30%, #ddd 50%, #666 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%; /* Adjusted width for responsiveness */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+        }
+
+        button[type="submit"] {
+            width: 96%; /* Adjusted width for responsiveness */
+            padding: 10px;
+            border: none;
+            border-radius: 30px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            text-align: center; /* Center align error messages */
+        }
+
+        @media only screen and (max-width: 800px) {
+            .container {
+                width: 90%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <br>
+    <div class="container">
+        <div class="form sign-in">
+            <h1><a class="m-4 display-4 text-uppercase steel-text">ADMIN LOGIN </a></h1>
+            <form action="{% url 'productapp:faculty' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Username"><br>
+                <input type="password" name="password" placeholder="Enter your password"><br>
+                <a href="{% url 'productapp:dashboard' %}"><button type="submit" class="submit">Sign In</button></a>
+            </form>
+        </div>
+    </div>
+    {% for msg in messages %}
+    <p class="error-message">{{ msg }}</p>
+    {% endfor %}
+</body>
+</html>

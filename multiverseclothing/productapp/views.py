@@ -3,6 +3,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import json
+from django.contrib.auth.models import User
+from django.db.models import Q
+from django.db.models import Sum
 from itertools import chain
 from operator import attrgetter
 from .models import Product,Magazine,Shop,Cart,OrderCart,Like,OrderDesign
@@ -34,31 +37,7 @@ def allproducts(request):
     return render(request, 'allproducts.html', {'products': products, 'tags': tags})
 
 
-def uploadproduct(request):
-    if request.method == "POST":
-        image = request.FILES.get('image')
-        title = request.POST.get('title')
-        product_id = request.POST.get('product_id')
-        tag = request.POST.get('tag')
-        price = request.POST.get('price')
-        color = request.POST.get('color')
-        size = request.POST.get('size')
 
-        product = Product(
-            image=image,
-            title=title,
-            product_id=product_id,
-            tag=tag,
-            price=price,
-            color=color,
-            size=size
-
-        )
-        product.save()
-
-        return redirect('productapp:allproducts')
-
-    return render(request, 'uploadproducts.html', )
 
 
 def fetch_products(request):
@@ -297,20 +276,6 @@ def fetch_shop(request):
     return JsonResponse({'shop': shop_data})
 
 
-def upload_shop(request):
-    if request.method == 'POST':
-        form = ShopForm(request.POST, request.FILES)
-        if form.is_valid():
-            # Save the form but manually set the 'cat' field
-            shop_instance = form.save(commit=False)
-            shop_instance.cat = request.POST.get('cat', '')  # Get the 'cat' value from POST data
-            shop_instance.save()
-            return redirect('productapp:shop')
-    else:
-        form = ShopForm()
-    return render(request, 'uploadshop.html', {'form': form})
-
-
 
 def shopdetail(request, id):
     product = get_object_or_404(Shop, id=id)
@@ -480,3 +445,96 @@ def about(request):
 
 
 
+# admin dashboard functions below
+
+def faculty(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        password = request.POST.get('password', '')
+
+        if name == 'multiverseadmin' and password == 'multiverse@2024':
+            return redirect('productapp:dashboard')
+        else:
+            messages.error(request, 'Invalid username or password')
+
+    return render(request, "cred.html")
+
+def dashboard(request):
+
+    user_count = User.objects.count()
+
+    # Count total orders for both OrderCart and OrderDesign
+    cart_order_count = OrderCart.objects.filter(paid=True).count()
+    design_order_count = OrderDesign.objects.filter(paid=True).count()
+
+    # Total orders
+    total_orders = cart_order_count + design_order_count
+    # Get the current user's orders for both shop products and design products
+    cart_orders = OrderCart.objects.filter( paid=True)
+    design_orders = OrderDesign.objects.filter( paid=True)
+
+    # Combine the two querysets and order by 'created_at' field in descending order
+    all_orders = sorted(
+        chain(cart_orders, design_orders),
+        key=lambda order: order.created_at,
+        reverse=True
+    )
+
+    cart_revenue = OrderCart.objects.filter(paid=True).aggregate(total=Sum('amount'))['total'] or 0
+    design_revenue = OrderDesign.objects.filter(paid=True).aggregate(total=Sum('amount'))['total'] or 0
+
+    # Total paid orders
+    total_paid_orders = cart_order_count + design_order_count
+
+    # Total revenue (sum of both cart and design revenues)
+    total_revenue = float(cart_revenue) + float(design_revenue)
+
+    return render(request, 'dashboard.html', {'orders': all_orders,'user_count': user_count,'total_orders': total_orders,'total_paid_orders': total_paid_orders,'total_revenue': total_revenue})
+
+def admin_product_view(request):
+    products = Product.objects.all().order_by('-created_at')
+    return render(request, 'adminallproducts.html', {'products': products})
+
+def admin_shop_view(request):
+    shops = Shop.objects.all().order_by('-created_at')
+    return render(request, 'adminallshops.html', {'shops': shops})
+
+def upload_shop(request):
+    if request.method == 'POST':
+        form = ShopForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save the form but manually set the 'cat' field
+            shop_instance = form.save(commit=False)
+            shop_instance.cat = request.POST.get('cat', '')  # Get the 'cat' value from POST data
+            shop_instance.save()
+            return redirect('productapp:shop')
+    else:
+        form = ShopForm()
+    return render(request, 'uploadshop.html', {'form': form})
+
+
+def uploadproduct(request):
+    if request.method == "POST":
+        image = request.FILES.get('image')
+        title = request.POST.get('title')
+        product_id = request.POST.get('product_id')
+        tag = request.POST.get('tag')
+        price = request.POST.get('price')
+        color = request.POST.get('color')
+        size = request.POST.get('size')
+
+        product = Product(
+            image=image,
+            title=title,
+            product_id=product_id,
+            tag=tag,
+            price=price,
+            color=color,
+            size=size
+
+        )
+        product.save()
+
+        return redirect('productapp:admin_product_view')
+
+    return render(request, 'uploadproducts.html', )

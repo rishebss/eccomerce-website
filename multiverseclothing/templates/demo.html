@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,303 +9,291 @@
     <title>home</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/flickity@2/dist/flickity.min.css"
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
 <style>
-    @import url('https://fonts.googleapis.com/css?family=Manrope:700|Manrope:400');
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-:root {
-  --text: hsl(0, 0%, 99%);
-  --textDim: hsl(0, 0%, 60%);
-  --background: hsl(0, 0%, 7%);
-  --primary: hsl(268, 100%, 65%);
-  --primaryBg: hsla(155, 100%, 65%, 1%);
-  --primaryHi: hsla(271, 65%, 53%, 0.25);
-  --primaryFg: hsl(155, 100%, 85%);
-  --secondary: hsl(221, 52%, 14%);
-  --secondaryFg: hsl(156, 51%, 75%);
-  --secondaryBg: hsla(156, 51%, 14%, 5%);
-  --secondaryHi: hsla(295, 52%, 30%, 0.5);
-  --accent: hsl(232, 100%, 94%);
-  --accentBg: hsla(155, 100%, 94%, 1%);
-  --accentHi: hsla(0, 0%, 100%, 0.25);
+body{
+	font-family: 'Roboto', sans-serif;
 }
-@font-face {
-            font-family: myfont;
-            src: url(/static/Geometos.ttf);
-        }
-body {
-  font-family: 'myfont';
-  font-weight: 400;
-  background-color: var(--background);
-  color: var(--text);
-  padding: 0 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+* {
+	margin: 0;
+	padding: 0;
 }
-
-nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2rem;
-  color: var(--textDim);
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 9999;
+i {
+	margin-right: 10px;
 }
-
-.menu:hover {
-  color: var(--text);
-  cursor: pointer;
+/*----------bootstrap-navbar-css------------*/
+.navbar-logo{
+	padding: 15px;
+	color: #fff;
 }
-
-.sitename {
-  font-weight: bold;
+.navbar-mainbg{
+	background-color: #5161ce;
+	padding: 0px;
 }
-
-.grid {
-  position: absolute;
-  height: 100%;
-  weight: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  z-index: -1;
+#navbarSupportedContent{
+	overflow: hidden;
+	position: relative;
 }
-
-.grid-svg {
-  height: 80%;
-  width: 80%;
-  position: relative;
-  z-index: 1;
+#navbarSupportedContent ul{
+	padding: 0px;
+	margin: 0px;
 }
-
-.blur {
-  height: 12rem;
-  width: 12rem;
-  background-color: var(--primary);
-  filter: blur(100px);
-  border-radius: 100px;
-  z-index: 0;
-  position: absolute;
+#navbarSupportedContent ul li a i{
+	margin-right: 10px;
 }
-
-.title {
-  font-size: 8rem;
-  font-weight: 700;
-  letter-spacing: -0.8rem;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  justify-content: center;
-  align-self: center;
-  height: 100%;
-  z-index: 1000;
+#navbarSupportedContent li {
+	list-style-type: none;
+	float: left;
 }
-
-.title > p {
-  margin: 0;
-  line-height: 10rem;
-  width: auto;
+#navbarSupportedContent ul li a{
+	color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    padding: 20px 20px;
+    transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
 }
-
-.title > p:nth-child(1){
-  align-self: flex-start;
+#navbarSupportedContent>ul>li.active>a{
+	color: #5161ce;
+	background-color: transparent;
+	transition: all 0.7s;
 }
-
-.title > p:nth-child(2){
-  color: var(--primary);
-  align-self: flex-end;
+#navbarSupportedContent a:not(:only-child):after {
+	content: "\f105";
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	font-size: 14px;
+	font-family: "Font Awesome 5 Free";
+	display: inline-block;
+	padding-right: 3px;
+	vertical-align: middle;
+	font-weight: 900;
+	transition: 0.5s;
 }
-
-.title > p:nth-child(3){
-  align-self: flex-end;
+#navbarSupportedContent .active>a:not(:only-child):after {
+	transform: rotate(90deg);
 }
-
-.material-icons {
-  display: none;
-  fill: var(--text);
+.hori-selector{
+	display:inline-block;
+	position:absolute;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	background-color: #fff;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	margin-top: 10px;
+}
+.hori-selector .right,
+.hori-selector .left{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-color: #fff;
+	bottom: 10px;
+}
+.hori-selector .right{
+	right: -25px;
+}
+.hori-selector .left{
+	left: -25px;
+}
+.hori-selector .right:before,
+.hori-selector .left:before{
+	content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #5161ce;
+}
+.hori-selector .right:before{
+	bottom: 0;
+    right: -25px;
+}
+.hori-selector .left:before{
+	bottom: 0;
+    left: -25px;
 }
 
 
-
-.button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  height: 50px;
-  width: 160px;
-  z-index: 9999;
-}
-
-button {
-  height: 50px;
-  width: 160px;
-  clip-path: path("M 0 25 C 0 -5, -5 0, 80 0 S 160 -5, 160 25, 165 50 80 50, 0 55, 0 25");
-  border: none;
-  border-radius: 13px;
-  background-color: var(--primaryBg);
-  box-shadow: 0px -3px 15px 0px var(--primaryHi) inset;
-  color: var(--primaryFg);
-  font-family: "Manrope";
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  transform: translateY(0px);
-  transition: all 0.2s ease;
-}
-
-span {
-  width: 100px;
-  height: 60px;
-  background-color: var(--primaryHi);
-  border-radius: 100%;
-  filter: blur(20px);
-  position: absolute;
-  bottom: -50%;
-  transition: all 0.2s ease;
-}
-
-.button:hover > span {
-  opacity: 60%;
-}
-
-.button:hover > button {
-  transform: translateY(5px);
-}
-
-.button.first {
-  top: 12%;
-  right: 20%;
-}
-
-.button.sec {
-  bottom: 13%;
-  right: 11%;
-}
-
-.button.sec > button {
-  background-color: var(--accentBg);
-  box-shadow: 0px -3px 15px 0px var(--accentHi) inset;
-  color: var(--accentFg);
-}
-
-.button.sec > span {
-  background-color: var(--accentHi);
-}
-
-.button.third {
-  bottom: 25%;
-  left: 15%;
-}
-
-.button.third > button {
-  background-color: var(--secondaryBg);
-  box-shadow: 0px -3px 15px 0px var(--secondary) inset;
-  color: var(--secondaryFg);
-}
-
-.button.third > span {
-  background-color: var(--secondaryHi);
+@media(min-width: 992px){
+	.navbar-expand-custom {
+	    -ms-flex-flow: row nowrap;
+	    flex-flow: row nowrap;
+	    -ms-flex-pack: start;
+	    justify-content: flex-start;
+	}
+	.navbar-expand-custom .navbar-nav {
+	    -ms-flex-direction: row;
+	    flex-direction: row;
+	}
+	.navbar-expand-custom .navbar-toggler {
+	    display: none;
+	}
+	.navbar-expand-custom .navbar-collapse {
+	    display: -ms-flexbox!important;
+	    display: flex!important;
+	    -ms-flex-preferred-size: auto;
+	    flex-basis: auto;
+	}
 }
 
 
-.top-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  opacity: 50%;
-}
-
-.bottom-left {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  opacity: 50%;
-}
-
-
-
-
-@media screen and (max-width: 1000px) {
-  .title {
-    font-size: 3rem;
-    line-height: 
-  }
-  
-  .title > p {
-    line-height: 5rem;
-    letter-spacing: -0.3rem;
-  }
-  
-
-  
-  .material-icons {
-    display: flex;
-    align-items: center;
-  }
-  
+@media (max-width: 991px){
+	#navbarSupportedContent ul li a{
+		padding: 12px 30px;
+	}
+	.hori-selector{
+		margin-top: 0px;
+		margin-left: 10px;
+		border-radius: 0;
+		border-top-left-radius: 25px;
+		border-bottom-left-radius: 25px;
+	}
+	.hori-selector .left,
+	.hori-selector .right{
+		right: 10px;
+	}
+	.hori-selector .left{
+		top: -25px;
+		left: auto;
+	}
+	.hori-selector .right{
+		bottom: -25px;
+	}
+	.hori-selector .left:before{
+		left: -25px;
+		top: -25px;
+	}
+	.hori-selector .right:before{
+		bottom: -25px;
+		left: -25px;
+	}
 }
 </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+    <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<script>
+    animation-----------
+function test(){
+	var tabsNewAnim = $('#navbarSupportedContent');
+	var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+	var activeItemNewAnim = tabsNewAnim.find('.active');
+	var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+	var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+	var itemPosNewAnimTop = activeItemNewAnim.position();
+	var itemPosNewAnimLeft = activeItemNewAnim.position();
+	$(".hori-selector").css({
+		"top":itemPosNewAnimTop.top + "px", 
+		"left":itemPosNewAnimLeft.left + "px",
+		"height": activeWidthNewAnimHeight + "px",
+		"width": activeWidthNewAnimWidth + "px"
+	});
+	$("#navbarSupportedContent").on("click","li",function(e){
+		$('#navbarSupportedContent ul li').removeClass("active");
+		$(this).addClass('active');
+		var activeWidthNewAnimHeight = $(this).innerHeight();
+		var activeWidthNewAnimWidth = $(this).innerWidth();
+		var itemPosNewAnimTop = $(this).position();
+		var itemPosNewAnimLeft = $(this).position();
+		$(".hori-selector").css({
+			"top":itemPosNewAnimTop.top + "px", 
+			"left":itemPosNewAnimLeft.left + "px",
+			"height": activeWidthNewAnimHeight + "px",
+			"width": activeWidthNewAnimWidth + "px"
+		});
+	});
+}
+$(document).ready(function(){
+	setTimeout(function(){ test(); });
+});
+$(window).on('resize', function(){
+	setTimeout(function(){ test(); }, 500);
+});
+$(".navbar-toggler").click(function(){
+	$(".navbar-collapse").slideToggle(300);
+	setTimeout(function(){ test(); });
+});
 
-  <div class="grid">
-    <svg class="grid-svg" xmlns="http://www.w3.org/2000/svg" width="982" height="786" viewBox="0 0 982 786" fill="none">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M490 401V537H348.5V401H490ZM490 785.5V676H348.5V785.5H347.5V676H206V785.5H205V676H63.5V785.5H62.5V676H0V675H62.5V538H0V537H62.5V401H0V400H62.5V258H0V257H62.5V116H0V115H62.5V0H63.5V115L205 115V0H206V115L347.5 115V0H348.5V115H490V0H491V115L627.5 115V0H628.5V115H765V0H766V115L902.5 115V0H903.5V115H982V116H903.5V257H982V258H903.5V400H982V401H903.5V537H982V538H903.5V675H982V676H903.5V785.5H902.5V676H766V785.5H765V676H628.5V785.5H627.5V676H491V785.5H490ZM902.5 675V538H766V675H902.5ZM902.5 537V401H766V537H902.5ZM902.5 400V258H766V400H902.5ZM902.5 257V116L766 116V257H902.5ZM627.5 675H491V538H627.5V675ZM765 675H628.5V538H765V675ZM348.5 675H490V538H348.5V675ZM347.5 538V675H206V538H347.5ZM205 538V675H63.5V538H205ZM765 537V401H628.5V537H765ZM765 400V258H628.5V400H765ZM765 257V116H628.5V257H765ZM347.5 401V537H206V401H347.5ZM205 401V537H63.5V401H205ZM627.5 401V537H491V401H627.5ZM627.5 116L491 116V257H627.5V116ZM627.5 258H491V400H627.5V258ZM63.5 257V116L205 116V257H63.5ZM63.5 400V258H205V400H63.5ZM206 116V257H347.5V116L206 116ZM348.5 116V257H490V116H348.5ZM206 400V258H347.5V400H206ZM348.5 258V400H490V258H348.5Z" fill="url(#paint0_radial_1_8)" />
-      <defs>
-        <radialGradient id="paint0_radial_1_8" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(491 392.75) rotate(90) scale(513.25 679.989)">
-          <stop stop-color="white" stop-opacity="0.2" />
-          <stop offset="1" stop-color="#000" stop-opacity="0" />
-        </radialGradient>
-      </defs>
-    </svg>
-    <div class="blur"></div>
-  </div>
-  
-  <div class="title">
-    <p>MULTIVERSE</p>
-    <p>CLOTHINGS</p>
-    
-  </div>
-  
-  <a href="https://dribbble.com/shots/23181733-Blurry-Glassmorphic-Modern-Landing-page" target="_blank" class="button first"><button>LOGIN</button><span></span></a>
-  
-  <a href="https://youtu.be/1pW_sk-2y40" target="_blank" class="button sec"><button>CONNECT</button><span></span></a>
-  
-  <a href="https://x.com/juxtopposed" target="_blank" class="button third"><button>PRODUCTS</button><span></span></a>
-  
-  <svg class="top-right" width="219" height="147" viewBox="0 0 219 147" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect opacity="0.18" x="10.4252" y="75.8326" width="7.50168" height="7.50168" transform="rotate(110.283 10.4252 75.8326)" fill="#686868" stroke="white" stroke-width="1.22683" />
-    <rect opacity="0.18" x="180.869" y="138.825" width="7.50168" height="7.50168" transform="rotate(110.283 180.869 138.825)" fill="#686868" stroke="white" stroke-width="1.22683" />
-    <rect x="69.4713" y="-91.84" width="180.485" height="180.485" transform="rotate(20.2832 69.4713 -91.84)" stroke="white" stroke-opacity="0.1" stroke-width="1.22683" />
-  </svg>
-  
-  <svg class="bottom-left" width="232" height="191" viewBox="0 0 232 191" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50.5685" cy="172.432" r="112.068" stroke="white" stroke-opacity="0.09" />
-    <g opacity="0.1">
-      <path d="M26.4932 5.20547L228.856 172.432" stroke="#D9D9D9" />
-      <rect x="22.4384" y="0.5" width="6.15753" height="6.15753" fill="#686868" stroke="white" />
-      <rect x="224.801" y="169.027" width="6.15753" height="6.15753" fill="#686868" stroke="white" />
-      <circle cx="121.819" cy="83.613" r="1.7774" fill="#323232" stroke="white" />
-    </g>
-  </svg>
-  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+
+// --------------add active class-on another-page move----------
+jQuery(document).ready(function($){
+	// Get current path and find target link
+	var path = window.location.pathname.split("/").pop();
+
+	// Account for home page with empty path
+	if ( path == '' ) {
+		path = 'index.html';
+	}
+
+	var target = $('#navbarSupportedContent ul li a[href="'+path+'"]');
+	// Add active class to target link
+	target.parent().addClass('active');
+});
+
+
+
+
+// Add active class on another page linked
+// ==========================================
+// $(window).on('load',function () {
+//     var current = location.pathname;
+//     console.log(current);
+//     $('#navbarSupportedContent ul li a').each(function(){
+//         var $this = $(this);
+//         // if the current path is like this link, make it active
+//         if($this.attr('href').indexOf(current) !== -1){
+//             $this.parent().addClass('active');
+//             $this.parents('.menu-submenu').addClass('show-dropdown');
+//             $this.parents('.menu-submenu').parent().addClass('active');
+//         }else{
+//             $this.parent().removeClass('active');
+//         }
+//     })
+// });
+</script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

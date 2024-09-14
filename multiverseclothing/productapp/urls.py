@@ -32,7 +32,10 @@ urlpatterns = [
     path('userorders/', views.userorders, name='userorders'),
     path('toggle_like/', views.toggle_like, name='toggle_like'),
     path('liked_products/', views.liked_products, name='liked_products'),
-
+    path('faculty/', views.faculty, name='faculty'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('admin_product_view/', views.admin_product_view, name='admin_product_view'),
+    path('admin_shop_view/', views.admin_shop_view, name='admin_shop_view'),
 
 
 ]

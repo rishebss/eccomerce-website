@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         body {
+            background-color: #f8f9fa;
+        }
+        .product-card {
+            margin: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-img {
+            height: 500px;
+            object-fit: cover;
+            width: 100%;
+        }
+    </style>
+    
+    </head>
+    <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'productapp:dashboard' %}">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#">Magazines</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'productapp:admin_shop_view' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-primary" href="{% url 'productapp:uploadproduct' %}">Upload Design</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-5"></div>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-img">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">Product ID: {{ product.product_id }}</p>
+                    <p class="card-text">Price: ₹{{ product.price }}</p>
+                    <p class="card-text"><strong>Tag:</strong> {{ product.tag }}</p>
+                    <p class="card-text"><strong>Color:</strong> {{ product.color }}</p>
+                    <p class="card-text"><strong>Size:</strong> {{ product.size }}</p>
+                    <p class="card-text"><small class="text-muted">Added on: {{ product.created_at }}</small></p>
+                    <a href="" class="btn btn-primary edit-button">Edit</a>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center" style="width: 100%;">No products available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
