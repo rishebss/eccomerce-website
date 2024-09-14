@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
+         @font-face {
+            font-family: myfont;
+            src: url(/static/Geometos.ttf);
+        }
         body {
-            font-family: 'Arial', sans-serif;
+            
             min-height: 60vh;
             background: black;
              background-color: black;
@@ -93,9 +97,9 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6 edit-profile-container">
-                <div class="edit-profile-header">
-                    <h2>Edit Profile</h2>
+            <div class="col-md-8 col-lg-6 edit-profile-container" style="font-family: myfont;">
+                <div class="edit-profile-header" >
+                    <h2 style="font-family: myfont;">Edit Profile</h2>
                 </div>
                 <form method="POST" action="{% url 'productapp:edit_profile' %}">
                     {% csrf_token %}
@@ -121,7 +125,7 @@
                             <input type="text" id="city" name="city" class="form-control" value="{{ user_profile.city }}" required>
                         </div>
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn text-white" style="background-image: url('{% static 'gradient3.jpg' %}'); background-size: coverborder: 6px solid rgba(255, 255, 255, 0.125);">Save Changes</button>
                         </div>
                     </div>
                 </form>

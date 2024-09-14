@@ -834,7 +834,7 @@ burger.addEventListener('click', () => {
             color: #fff;
             position: relative;
             overflow: hidden;
-            margin: 8px;
+            margin-left: 8px;
             min-width: 220px;
             max-width: 310px;
             max-height: 220px;
@@ -846,6 +846,7 @@ burger.addEventListener('click', () => {
             justify-content: center;
             align-items: center;
             border-radius:15px;
+            
         }
 
         figure.snip1190 * {
@@ -856,7 +857,8 @@ burger.addEventListener('click', () => {
         figure.snip1190 img {
             opacity: 0.8;
             width: 100%;
-            background-image:url(/static/galaxy2.jpg);
+            background-image:url(/static/gradient3.jpg);
+            background-size: cover;
         }
 
         figure.snip1190 figcaption {
@@ -1109,6 +1111,7 @@ burger.addEventListener('click', () => {
             height:350px;
             vertical-align: top;
             background-image: url(/static/gradient3.jpg);
+            
         }
 
         .snip1361 figcaption {
@@ -1188,7 +1191,7 @@ burger.addEventListener('click', () => {
             <figure class="snip1190">
                 <img src="/static/newlog.jpg" alt="Sample" style=" background-color: #161127; background-image:
         radial-gradient(at 47% 33%, hsl(162.06, 77%, 23%) 0, transparent 59%),
-        radial-gradient(at 82% 65%, hsl(216.43, 48%, 11%) 0, transparent 55%);}">
+        radial-gradient(at 82% 65%, hsl(216.43, 48%, 11%) 0, transparent 55%);margin-top:-40px;">
                 <figcaption>
                     
                     <a href="{% url 'productapp:allproducts' %}" style="color:white;text-decoration: none;">
@@ -1199,7 +1202,7 @@ burger.addEventListener('click', () => {
             </figure>
             
             <figure class="snip1190">
-                <img src="/static/thriftcc.png" alt="Sample">
+                <img src="/static/trx2.png"  alt="Sample" style="width:320px;margin-top:-40px;">
                 <figcaption>
                    
                     <a href="{% url 'productapp:shop' %}?category=thrifted"  style="color:white;text-decoration: none;"><h2 >THRIFTED<span> CLOTHS</span></h2></a>
@@ -1208,7 +1211,7 @@ burger.addEventListener('click', () => {
             </figure>
             
             <figure class="snip1190">
-                <img src="/static/custom.png" alt="Sample">
+                <img src="/static/bresh2.png" alt="Sample" style="margin-top:-20px;">
                 <figcaption>
                     
                     <a href="{% url 'custom:uploaddesign' %}"><h2 style="color:white;">CUSTOM<span> DESIGN</span></h2></a>
@@ -1242,7 +1245,7 @@ burger.addEventListener('click', () => {
                 <figcaption>
                     
                     <a href="{% url 'productapp:liked_products' %}"><h2 style="color:white;">LIKED<span> DESIGN</span></h2></a>
-                    <p style="color:white;">Create Your Product</p>
+                    <p style="color:white;"> Your Liked Products</p>
                 </figcaption>
             </figure>
         </div>

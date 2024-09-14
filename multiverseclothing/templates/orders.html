@@ -54,7 +54,6 @@
         .order-footer {
             text-align: right;
             margin-top: 15px;
-            
         }
     </style>
 </head>
@@ -69,16 +68,22 @@
                 <h3>Status: {{ order.paid|yesno:"Paid,Pending" }}</h3>
             </div>
             <div class="order-details">
-                <p><strong>Product Name:</strong> {{ order.product_name }}</p>
-                <p><strong>Color:</strong> {{ order.color }}</p>
-                <p><strong>Size:</strong> {{ order.size }}</p>
+                {% if order.product_name %}
+                    <!-- ShopProduct Order (OrderCart) -->
+                    <p><strong>Product Name:</strong> {{ order.product_name }}</p>
+                    <p><strong>Color:</strong> {{ order.color }}</p>
+                    <p><strong>Size:</strong> {{ order.size }}</p>
+                {% elif order.design_name %}
+                    <!-- DesignProduct Order (OrderDesign) -->
+                    <p><strong>Design Name:</strong> {{ order.design_name }}</p>
+                    <p><strong>Design Color:</strong> {{ order.designcolor }}</p>
+                    <p><strong>Design Size:</strong> {{ order.designsize }}</p>
+                {% endif %}
                 <p><strong>Amount:</strong> Rs {{ order.amount }}</p>
                 <br>
                 <p>Payment ID:</p><h6>{{ order.payment_id }}</h6>
             </div>
-            <div class="order-footer">
-                
-            </div>
+            <div class="order-footer"></div>
         </div>
         {% empty %}
         <p class="text-center" style="font-family: myfont;margin-top:100px;">You have no orders yet.</p>

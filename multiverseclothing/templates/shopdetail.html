@@ -357,19 +357,21 @@ img{
                             <div class="col-md-8 additional-info text-center">
                                 <h2 class="text-center text-white" style="color:white;font-family: myfont;">Product Details</h2><br>
                                 <ul>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong >Design:</strong> {{ product.design }}</span>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Fit:</strong> {{ product.fit }}</span>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Occasion:</strong> {{ product.occasion }}</span>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Sleeve:</strong> {{ product.sleeve }}</span>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Neck:</strong> {{ product.neck }}</span>
-                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Wash Care:</strong> {{ product.wash_care }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong >Size :</strong> {{ product.size }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong >Color :</strong> {{ product.color }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong >Design :</strong> {{ product.design }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Fit :</strong> {{ product.fit }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Occasion :</strong> {{ product.occasion }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Sleeve :</strong> {{ product.sleeve }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Neck :</strong> {{ product.neck }}</span>
+                                    <span class="text-start" style="margin-bottom:10px;font-family: myfont;color:#a9a9a9;"><strong>Wash Care :</strong> {{ product.wash_care }}</span>
                                 </ul>
                             </div>
                         </div>
                     </p>
                     <div class = "btn-groups">
                         <a href="{% url 'productapp:add_to_cart' %}"><button type = "button" class = "add-cart-btn"><i class = "fas fa-shopping-cart"></i>add to cart</button></a>
-                        <button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button>
+                        
                     </div>
                 </div>
             </div>

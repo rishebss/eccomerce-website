@@ -3,7 +3,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import json
-
+from itertools import chain
+from operator import attrgetter
 from .models import Product,Magazine,Shop,Cart,OrderCart,Like,OrderDesign
 from django.contrib.auth.decorators import login_required
 from .models import Selection
@@ -462,8 +463,17 @@ def designsuccess(request):
 
 
 def userorders(request):
-    orders = OrderCart.objects.filter(user=request.user)
-    return render(request, 'orders.html', {'orders': orders})
+    shop_orders = OrderCart.objects.filter(user=request.user, paid=True)
+    design_orders = OrderDesign.objects.filter(user=request.user, paid=True)
+    
+    # Combine both querysets and sort by 'created_at' in reverse order (newest first)
+    all_orders = sorted(
+        chain(shop_orders, design_orders), 
+        key=attrgetter('created_at'), 
+        reverse=True
+    )
+
+    return render(request, 'orders.html', {'orders': all_orders})
 
 def about(request):
     return render(request,"about.html")
