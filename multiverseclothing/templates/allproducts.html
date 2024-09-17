@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout Example</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
@@ -691,7 +692,7 @@
 
 <h1 class="text-center text-white" style="margin-top:20px;">DESIGNS</h1>
 <ul class="product-list" id="product-list">
-  {% for product in products %}
+  {% for product in page_obj %}
   
   <li class="product-card" data-tag="{{ product.tag }}">
     
@@ -710,6 +711,37 @@
   
   {% endfor %}
 </ul>
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center" >
+    <ul class="pagination" >
+        <!-- Previous Page -->
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if tag %}&tag={{ tag }}{% endif %}" style="color: purple; background-color: rgba(0, 0, 0, 0.5);">
+                <i class="fa-solid fa-angles-left"></i>
+            </a>
+        </li>
+        
+        {% endif %}
+        
+        <!-- Current Page -->
+        <li class="page-item active ml-3">
+            <span class="page-link" style="height:33px; border-radius:5px; background-color: rgba(0, 0, 0, 0.5); color: purple;">
+                {{ page_obj.number }}
+            </span>
+        </li>
+        
+        <!-- Next Page -->
+        {% if page_obj.has_next %}
+        <li class="page-item ml-3">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if tag %}&tag={{ tag }}{% endif %}" style="color: purple; background-color: rgba(0, 0, 0, 0.5);">
+                <i class="fa-solid fa-angles-right"></i>
+            </a>
+        </li>
+        
+        {% endif %}
+    </ul>
+</div>
 
 
 <script>

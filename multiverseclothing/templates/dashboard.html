@@ -35,17 +35,21 @@
         .revenue-card {
             background-color: #28a745;
             color: rgb(0, 0, 0);
+            height:200px;
         }
         .orders-card {
             background-color: #ffc107;
+            height:200px;
         }
         .users-card {
             background-color: #17a2b8;
             color: black;
+            height:200px;
         }
         .products-card {
             background-color: #dc3545;
             color: white;
+            height:200px;
         }
 
         /* Responsive Improvements */
@@ -186,9 +190,15 @@
                             <tbody>
                                 {% for order in orders %}
                                     <tr>
+                                        
                                         <td>{{ order.id }}</td>
-                                        <td>{{ order.user.username }}</td>
-
+                                        
+                                        <td>
+                                            <a href="{% url 'productapp:admin_order_detail' order.id order.order_type %}">
+                                            {{ order.user.username }}
+                                         </a>
+                                        </td>
+                                        
                                         <!-- Check if it's an OrderCart or OrderDesign -->
                                         {% if order.product_name %}
                                             <td>{{ order.product_name }}</td>

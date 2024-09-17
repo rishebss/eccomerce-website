@@ -36,6 +36,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin_product_view/', views.admin_product_view, name='admin_product_view'),
     path('admin_shop_view/', views.admin_shop_view, name='admin_shop_view'),
+    path('order-detail/<int:order_id>/<str:order_type>/', views.admin_order_detail, name='admin_order_detail'),
 
 
 ]

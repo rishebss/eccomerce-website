@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .order-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            font-weight: bold;
+            background-color: #343a40;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        .card-body {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .order-info {
+            margin-bottom: 15px;
+        }
+        .order-info strong {
+            font-weight: bold;
+        }
+        .order-info p {
+            margin: 0;
+        }
+        .section-title {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #17a2b8;
+            border-bottom: 2px solid #17a2b8;
+            display: inline-block;
+        }
+        .order-total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .paid-status {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .pending-status {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        .order-date {
+            margin-top: 15px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-header">
+            <h1>Order Details</h1>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Order Information
+            </div>
+            <div class="card-body">
+                <div class="order-info">
+                    <p><strong>User:</strong> {{ order.user.username }}</p>
+                    <p><strong>Recipient Name:</strong> {{ order.info.recipient_name }}</p>
+                    <p><strong>Shipping Address:</strong> {{ order.info.shipping_address }}</p>
+                    <p><strong>Phone Number:</strong> {{ order.info.phone_number }}</p>
+                </div>
+
+                {% if order_type == "OrderCart" %}
+                    <div class="section-title mb-3">Shop Product Details</div>
+                    
+                    <div class="order-info">
+                        <p><strong>Product Name:</strong> {{ order.product_name }}</p>
+                        <p><strong>Color:</strong> {{ order.color }}</p>
+                        <p><strong>Size:</strong> {{ order.size }}</p>
+                    </div>
+                {% elif order_type == "OrderDesign" %}
+                    <div class="section-title mb-3">Design Product Details</div>
+                    
+                    <div class="order-info">
+                        <p><strong>Design Name:</strong> {{ order.design_name }}</p>
+                        <p><strong>Color:</strong> {{ order.designcolor }}</p>
+                        <p><strong>Size:</strong> {{ order.designsize }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="order-total">
+                    <p><strong>Amount:</strong> ₹{{ order.amount }}</p>
+                </div>
+
+                <p><strong>Paid Status:</strong> 
+                    <span class="{% if order.paid %}paid-status{% else %}pending-status{% endif %}">
+                        {{ order.paid|yesno:"Paid,Pending" }}
+                    </span>
+                </p>
+
+                <p class="order-date"><strong>Order Date:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

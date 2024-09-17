@@ -15,6 +15,7 @@ from django.conf import settings
 from decimal import Decimal
 from .models import UserProfile
 import razorpay
+from django.core.paginator import Paginator
 from .forms import MagazineForm,ShopForm
 from django.views import View
 
@@ -34,7 +35,12 @@ def allproducts(request):
 
     tags = Product.objects.values_list('tag', flat=True).distinct()  # Get distinct tags
 
-    return render(request, 'allproducts.html', {'products': products, 'tags': tags})
+     # Pagination
+    paginator = Paginator(products, 12)  # Show 12 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'allproducts.html', {'products': products, 'tags': tags,'page_obj': page_obj})
 
 
 
@@ -460,7 +466,6 @@ def faculty(request):
     return render(request, "cred.html")
 
 def dashboard(request):
-
     user_count = User.objects.count()
 
     # Count total orders for both OrderCart and OrderDesign
@@ -469,9 +474,16 @@ def dashboard(request):
 
     # Total orders
     total_orders = cart_order_count + design_order_count
+
     # Get the current user's orders for both shop products and design products
-    cart_orders = OrderCart.objects.filter( paid=True)
-    design_orders = OrderDesign.objects.filter( paid=True)
+    cart_orders = OrderCart.objects.filter(paid=True)
+    design_orders = OrderDesign.objects.filter(paid=True)
+
+    # Add the order type to distinguish between OrderCart and OrderDesign
+    for order in cart_orders:
+        order.order_type = "OrderCart"
+    for order in design_orders:
+        order.order_type = "OrderDesign"
 
     # Combine the two querysets and order by 'created_at' field in descending order
     all_orders = sorted(
@@ -489,7 +501,13 @@ def dashboard(request):
     # Total revenue (sum of both cart and design revenues)
     total_revenue = float(cart_revenue) + float(design_revenue)
 
-    return render(request, 'dashboard.html', {'orders': all_orders,'user_count': user_count,'total_orders': total_orders,'total_paid_orders': total_paid_orders,'total_revenue': total_revenue})
+    return render(request, 'dashboard.html', {
+        'orders': all_orders,
+        'user_count': user_count,
+        'total_orders': total_orders,
+        'total_paid_orders': total_paid_orders,
+        'total_revenue': total_revenue
+    })
 
 def admin_product_view(request):
     products = Product.objects.all().order_by('-created_at')
@@ -538,3 +556,16 @@ def uploadproduct(request):
         return redirect('productapp:admin_product_view')
 
     return render(request, 'uploadproducts.html', )
+
+
+def admin_order_detail(request, order_id, order_type):
+    if order_type == "OrderCart":
+        order = get_object_or_404(OrderCart, id=order_id)
+    elif order_type == "OrderDesign":
+        order = get_object_or_404(OrderDesign, id=order_id)
+    
+    context = {
+        'order': order,
+        'order_type': order_type,
+    }
+    return render(request, 'adminorderdetail.html', context)
