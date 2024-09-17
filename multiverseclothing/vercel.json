@@ -1,4 +1,11 @@
 {
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/" }
+    ]
+  }
+
+
+{
     "builds": [{
         "src": "multiverseclothing/wsgi.py",
         "use": "@vercel/python",
