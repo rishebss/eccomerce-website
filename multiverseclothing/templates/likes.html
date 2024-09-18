@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
         body {
-            min-height: 60vh;
+            height: 60vh;
             margin-top: 20px;
             margin-bottom:70px;
             background-color: black;
@@ -583,7 +583,134 @@ font-size: 20px;
     
     {% endif %}
 
-   
+    <style>
+      .footer {
+        inset: 0;
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 5%,
+        rgba(0, 0, 0, 0.3) 20%,
+        rgba(0, 0, 0, 0.6) 30%,
+        rgba(0, 0, 0, 0.8) 40%,
+        rgba(0, 0, 0, 1) 50%,
+        rgb(0, 0, 0)
+      );
+      z-index: -7;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        bottom:0;
+        width:96.5vw;
+        margin-top: 200px;
+        margin-bottom: -60px;
+        
+    }
+    
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-section {
+        flex: 1;
+        margin: 1rem;
+    }
+    
+    .footer-section h2 {
+        margin-bottom: 1rem;
+        font-size: 20px;
+        color: #f4f4f4;
+    }
+    
+    .footer-section p,
+    .footer-section ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .footer-section p {
+        font-size: 16px;
+    }
+    
+    .footer-section ul {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .footer-section ul li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section ul li a {
+        color: #f4f4f4;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .footer-section ul li a:hover {
+        color: #1e90ff;
+    }
+    
+    .footer-section .social {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .footer-section .social-icon {
+        display: inline-block;
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50%;
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .footer-section .social-icon:hover {
+        background-color: #1e90ff;
+        color: white;
+    }
+    
+    .footer-bottom {
+        border-top: 1px solid #444;
+        padding-top: 1rem;
+        font-size: 14px;
+        margin-bottom: 4rem;
+    }
+    </style>
+    <footer class="footer">
+      <div class="footer-content">
+          
+          <div class="footer-section links">
+              <h2 style="font-family:myfont;">multiverseclothing</h2>
+              <img src="/static/mmm.png" style="width:200px;margin-top: -40px;">
+          </div>
+          <div class="footer-section contact">
+              <h2 style="font-family: myfont;">Quick Links</h2>
+              <p style="font-family:myfont;"><a href="#home" style="color:white;">Home</a></p>
+              <p style="font-family:myfont;"><a href="#home" style="color:white;">Designs</a></p>
+              <p style="font-family:myfont;"><a href="#home" style="color:white;">About</a></p>
+              <p style="font-family:myfont;"><a href="#home" style="color:white;">Top</a></p>
+              
+          </div>
+          <div class="footer-section social">
+            <h2 style="font-family:myfont;">Connect Us</h2>
+            <div class="social">
+              
+              <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+              <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+              <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+            </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2024 Multiverse clothing. All Rights Reserved.</p>
+      </div>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

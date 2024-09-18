@@ -692,7 +692,7 @@
 
 <h1 class="text-center text-white" style="margin-top:20px;">DESIGNS</h1>
 <ul class="product-list" id="product-list">
-  {% for product in page_obj %}
+  {% for product in products %}
   
   <li class="product-card" data-tag="{{ product.tag }}">
     
@@ -711,37 +711,8 @@
   
   {% endfor %}
 </ul>
-<!-- Pagination Controls -->
-<div class="d-flex justify-content-center" >
-    <ul class="pagination" >
-        <!-- Previous Page -->
-        {% if page_obj.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if tag %}&tag={{ tag }}{% endif %}" style="color: purple; background-color: rgba(0, 0, 0, 0.5);">
-                <i class="fa-solid fa-angles-left"></i>
-            </a>
-        </li>
-        
-        {% endif %}
-        
-        <!-- Current Page -->
-        <li class="page-item active ml-3">
-            <span class="page-link" style="height:33px; border-radius:5px; background-color: rgba(0, 0, 0, 0.5); color: purple;">
-                {{ page_obj.number }}
-            </span>
-        </li>
-        
-        <!-- Next Page -->
-        {% if page_obj.has_next %}
-        <li class="page-item ml-3">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if tag %}&tag={{ tag }}{% endif %}" style="color: purple; background-color: rgba(0, 0, 0, 0.5);">
-                <i class="fa-solid fa-angles-right"></i>
-            </a>
-        </li>
-        
-        {% endif %}
-    </ul>
-</div>
+
+
 
 
 <script>
@@ -782,7 +753,8 @@
                                       <input type="hidden" name="product_id" value="${product.id}">
                                   </form>
                               </div>
-                          </li>`
+                          </li>
+                          `
                       );
                   });
               },
@@ -792,6 +764,7 @@
               }
           });
       }
+      
   
       // Event listener for desktop filter dropdown
       if (desktopFilterSelect) {

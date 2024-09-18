@@ -35,12 +35,9 @@ def allproducts(request):
 
     tags = Product.objects.values_list('tag', flat=True).distinct()  # Get distinct tags
 
-     # Pagination
-    paginator = Paginator(products, 12)  # Show 12 products per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+     
 
-    return render(request, 'allproducts.html', {'products': products, 'tags': tags,'page_obj': page_obj})
+    return render(request, 'allproducts.html', {'products': products, 'tags': tags})
 
 
 
