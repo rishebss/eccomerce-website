@@ -89,6 +89,9 @@ class OrderCart(models.Model):
      amount = models.CharField(max_length=10)
      payment_id = models.CharField(max_length=100)
      paid = models.BooleanField(default=False)
+     order_confirmed = models.BooleanField(default=False)
+     shipped = models.BooleanField(default=False)
+     delivered = models.BooleanField(default=False)
      created_at = models.DateTimeField(auto_now_add=True)
 
      def __str__(self):
@@ -103,6 +106,9 @@ class OrderDesign(models.Model):
      amount = models.CharField(max_length=10)
      payment_id = models.CharField(max_length=100)
      paid = models.BooleanField(default=False)
+     order_confirmed = models.BooleanField(default=False)
+     shipped = models.BooleanField(default=False)
+     delivered = models.BooleanField(default=False)
      created_at = models.DateTimeField(auto_now_add=True)
 
      def __str__(self):

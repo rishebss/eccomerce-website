@@ -77,42 +77,70 @@
                 Order Information
             </div>
             <div class="card-body">
-                <div class="order-info">
-                    <p><strong>User:</strong> {{ order.user.username }}</p>
-                    <p><strong>Recipient Name:</strong> {{ order.info.recipient_name }}</p>
-                    <p><strong>Shipping Address:</strong> {{ order.info.shipping_address }}</p>
-                    <p><strong>Phone Number:</strong> {{ order.info.phone_number }}</p>
-                </div>
-
-                {% if order_type == "OrderCart" %}
-                    <div class="section-title mb-3">Shop Product Details</div>
-                    
+                <form method="POST" action="{% url 'productapp:admin_order_detail' order.id order_type %}">
+                    {% csrf_token %}
                     <div class="order-info">
-                        <p><strong>Product Name:</strong> {{ order.product_name }}</p>
-                        <p><strong>Color:</strong> {{ order.color }}</p>
-                        <p><strong>Size:</strong> {{ order.size }}</p>
+                        
+                        <p><strong>User:</strong> {{ order.user.username }}</p>
+                        <p><strong>Recipient Name:</strong> {{ order.info.recipient_name }}</p>
+                        <p><strong>Shipping Address:</strong> {{ order.info.shipping_address }}</p>
+                        <p><strong>Phone Number:</strong> {{ order.info.phone_number }}</p>
+                        <p>Order ID: {{ order.id }}</p>
                     </div>
-                {% elif order_type == "OrderDesign" %}
-                    <div class="section-title mb-3">Design Product Details</div>
-                    
-                    <div class="order-info">
-                        <p><strong>Design Name:</strong> {{ order.design_name }}</p>
-                        <p><strong>Color:</strong> {{ order.designcolor }}</p>
-                        <p><strong>Size:</strong> {{ order.designsize }}</p>
+
+                    {% if order_type == "OrderCart" %}
+                        <div class="section-title mb-3">Shop Product Details</div>
+                        
+                        <div class="order-info">
+                            <p><strong>Product Name:</strong> {{ order.product_name }}</p>
+                            <p><strong>Color:</strong> {{ order.color }}</p>
+                            <p><strong>Size:</strong> {{ order.size }}</p>
+                            
+                        </div>
+                        </div>
+                    {% elif order_type == "OrderDesign" %}
+                        <div class="section-title mb-3">Design Product Details</div>
+                        
+                        <div class="order-info">
+                            <p><strong>Design Name:</strong> {{ order.design_name }}</p>
+                            <p><strong>Color:</strong> {{ order.designcolor }}</p>
+                            <p><strong>Size:</strong> {{ order.designsize }}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="order-total">
+                        <p><strong>Amount:</strong> ₹{{ order.amount }}</p>
                     </div>
-                {% endif %}
 
-                <div class="order-total">
-                    <p><strong>Amount:</strong> ₹{{ order.amount }}</p>
-                </div>
+                    <p><strong>Paid Status:</strong> 
+                        <span class="{% if order.paid %}paid-status{% else %}pending-status{% endif %}">
+                            {{ order.paid|yesno:"Paid,Pending" }}
+                        </span>
+                    </p>
 
-                <p><strong>Paid Status:</strong> 
-                    <span class="{% if order.paid %}paid-status{% else %}pending-status{% endif %}">
-                        {{ order.paid|yesno:"Paid,Pending" }}
-                    </span>
-                </p>
+                    <p class="order-date"><strong>Order Date:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
 
-                <p class="order-date"><strong>Order Date:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="order_confirmed" {% if order.order_confirmed %}checked{% endif %}>
+                            Order Confirmed
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="shipped" {% if order.shipped %}checked{% endif %}>
+                            Shipped
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="delivered" {% if order.delivered %}checked{% endif %}>
+                            Delivered
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </form>
             </div>
         </div>
     </div>

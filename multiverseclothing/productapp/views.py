@@ -560,7 +560,14 @@ def admin_order_detail(request, order_id, order_type):
         order = get_object_or_404(OrderCart, id=order_id)
     elif order_type == "OrderDesign":
         order = get_object_or_404(OrderDesign, id=order_id)
-    
+
+    if request.method == "POST":
+        order.order_confirmed = request.POST.get('order_confirmed') == 'on'
+        order.shipped = request.POST.get('shipped') == 'on'
+        order.delivered = request.POST.get('delivered') == 'on'
+        order.save()
+        return redirect('productapp:admin_order_detail', order_id=order.id, order_type=order_type)  # Redirect after update
+
     context = {
         'order': order,
         'order_type': order_type,

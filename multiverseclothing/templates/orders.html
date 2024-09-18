@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
@@ -408,6 +409,7 @@
             <div class="order-header">
                 <h3>Order ID: {{ order.id }}</h3>
                 <h3>Status: {{ order.paid|yesno:"Paid,Pending" }}</h3>
+                
             </div>
             <div class="order-details">
                 {% if order.product_name %}
@@ -424,6 +426,28 @@
                 <p><strong>Amount:</strong> Rs {{ order.amount }}</p>
                 <br>
                 <p>Payment ID:</p><h6>{{ order.payment_id }}</h6>
+                <br>
+                <p><strong>Order Confirmed : </strong>
+                  {% if order.order_confirmed %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-check"></i></span>
+                  {% else %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-spinner"></i></span> 
+                  {% endif %}
+              </p>
+              <p><strong>Shipped : </strong>
+                  {% if order.shipped %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-check"></i></span> 
+                  {% else %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-spinner"></i></span> 
+                  {% endif %}
+              </p>
+              <p><strong>Delivered : </strong>
+                  {% if order.delivered %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-check"></i></span> 
+                  {% else %}
+                      <span style="color:rgb(128, 38, 0);font-size:1.3em;"><i class="fa-solid fa-spinner"></i></span> 
+                  {% endif %}
+              </p>
             </div>
             <div class="order-footer"></div>
         </div>
