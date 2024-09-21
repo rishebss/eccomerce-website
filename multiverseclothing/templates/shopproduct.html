@@ -775,63 +775,95 @@
 
 
 
-    <h1 class="text-center text-secondary" style="margin-top:70px;margin-bottom:20px;font-family:myfont;font-size:32px;">STORE PRODUCTS</h1><br>
+<h1 class="text-center text-secondary" style="margin-top:70px;margin-bottom:20px;font-family:myfont;font-size:32px;">STORE PRODUCTS</h1><br>
 
-    <div class="tabs">
-      
-      <a href="#" class="tab" data-category="thrifted">THRIFTED</a>
-      <a href="#" class="tab active" data-category="all">COLLECTIONS</a>
-      <a href="#" class="tab" data-category="trending">TRENDING</a>
-  </div><br>
-  
-  <ul class="product-list">
-      {% for shop in shop %}
-      <li class="product-card" data-category="{{ shop.cat }}" data-gen="{{ shop.gen }}" data-color="{{ shop.color }}" data-price="{{ shop.price }}" >
-        
-  
-          <a href="{% url 'productapp:shopdetail' shop.id %}">
-              <div class="image_container">
-                  <img src="{{ shop.photo1.url }}" alt="{{ shop.name }}">
-              </div>
-          </a>
-          <div class="title">{{ shop.name }}</div>
-          <div class="size">
-              <ul class="list-size">
-                  <li class="item-list"><button class="item-list-button">{{ shop.size }}</button></li>
-              </ul>
-          </div>
-          <div class="action">
-              <div class="price">Rs:{{ shop.price }}</div>
-              <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display:inline;">
+<div class="tabs">
+    <a href="#" class="tab" data-category="thrifted">THRIFTED</a>
+    <a href="#" class="tab active" data-category="all">COLLECTIONS</a>
+    <a href="#" class="tab" data-category="trending">TRENDING</a>
+</div><br>
+
+<ul class="product-list">
+    {% for shop in page_obj %}
+    <li class="product-card" data-category="{{ shop.cat }}" data-gen="{{ shop.gen }}" data-color="{{ shop.color }}" data-price="{{ shop.price }}">
+        <a href="{% url 'productapp:shopdetail' shop.id %}">
+            <div class="image_container">
+                <img src="{{ shop.photo1.url }}" alt="{{ shop.name }}">
+            </div>
+        </a>
+        <div class="title">{{ shop.name }}</div>
+        <div class="size">
+            <ul class="list-size">
+                <li class="item-list"><button class="item-list-button">{{ shop.size }}</button></li>
+            </ul>
+        </div>
+        <div class="action">
+            <div class="price">Rs:{{ shop.price }}</div>
+            <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display:inline;">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ shop.id }}">
-                <button type="submit" class=" text-white" style="background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:100px;height:40px;border-radius:10px;">
-                     Cart item
+                <button type="submit" class="text-white" style="background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:100px;height:40px;border-radius:10px;">
+                    Cart item
                 </button>
             </form>
-            </div>
-              
-          
-      </li>
-      {% endfor %}
-  </ul>
-  
-  <!-- <script>
-    function filterProducts(gen) {
-        const products = document.querySelectorAll('.product-card');
-        products.forEach(product => {
-            if (gen === '' || product.getAttribute('data-gen') === gen) {
-                product.style.display = 'block';
-            } else {
-                product.style.display = 'none';
-            }
-        });
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&category={{ request.GET.category }}&gen={{ request.GET.gen }}">first</a>
+            <a href="?page={{ page_obj.previous_page_number }}&category={{ request.GET.category }}&gen={{ request.GET.gen }}">previous</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&category={{ request.GET.category }}&gen={{ request.GET.gen }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&category={{ request.GET.category }}&gen={{ request.GET.gen }}">last</a>
+        {% endif %}
+    </span>
+</div>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center; /* Center the pagination links */
+        margin: 20px 0; /* Space above and below the pagination */
     }
-  </script> -->
-  <script>
+
+    .step-links {
+        display: flex;
+        align-items: center; /* Align items vertically */
+    }
+
+    .step-links a {
+        text-decoration: none; /* Remove underline */
+        padding: 8px 12px; /* Add padding */
+        margin: 0 5px; /* Space between links */
+        border: 1px solid #007bff; /* Border color */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #f8f9fa; /* Background color */
+        color: #007bff; /* Text color */
+        transition: background-color 0.3s, color 0.3s; /* Transition effects */
+    }
+
+    .step-links a:hover {
+        background-color: #007bff; /* Background color on hover */
+        color: white; /* Text color on hover */
+    }
+
+    .current {
+        margin: 0 10px; /* Space around current page text */
+        font-weight: bold; /* Make current page text bold */
+        color: #333; /* Current page text color */
+    }
+</style>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const mobileSearchInput = document.getElementById('query');
-        const desktopSearchInput = document.getElementById('desktop-query'); // Assuming 'desktop-query' is the ID for the desktop search bar
+        const desktopSearchInput = document.getElementById('desktop-query');
 
         // Mobile and Desktop Gen Filter
         const mobileGenFilter = document.getElementById('mobile-genFilter');
@@ -863,51 +895,45 @@
         }
 
         // Apply search functionality for both mobile and desktop search inputs
-        mobileSearchInput.addEventListener('input', function() {
+        mobileSearchInput.addEventListener('input', function () {
             applySearch(mobileSearchInput);
         });
 
-        desktopSearchInput.addEventListener('input', function() {
+        desktopSearchInput.addEventListener('input', function () {
             applySearch(desktopSearchInput);
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             const urlParams = new URLSearchParams(window.location.search);
             const selectedCategory = urlParams.get('category');
             const selectedGen = urlParams.get('gen');
-            
+            const pageNumber = parseInt(urlParams.get('page')) || 1;
+
             if (selectedCategory) {
                 $('.tab').removeClass('active');
                 $(`.tab[data-category="${selectedCategory}"]`).addClass('active');
             }
-            
-            if (selectedGen) {
-                $('#desktop-genFilter').val(selectedGen); // Set the value for desktop filter
-                $('#mobile-genFilter').val(selectedGen);  // Set the value for mobile filter
-            }
-            
-            function fetchProducts() {
-                const category = $('.tab.active').data('category') || '';
 
-                // Only use desktop filter if screen width is larger than 768px (desktop view)
-                let gen = '';
-                if (window.innerWidth > 768) {
-                    gen = $('#desktop-genFilter').val() || '';
-                } else {
-                    // For smaller screens, use mobile filter
-                    gen = $('#mobile-genFilter').val() || '';
-                }
-                
+            if (selectedGen) {
+                $('#desktop-genFilter').val(selectedGen);
+                $('#mobile-genFilter').val(selectedGen);
+            }
+
+            function fetchProducts(page = 1) {
+                const category = $('.tab.active').data('category') || '';
+                let gen = window.innerWidth > 768 ? $('#desktop-genFilter').val() || '' : $('#mobile-genFilter').val() || '';
+
                 $.ajax({
                     url: '{% url "productapp:fetch_shop" %}',
                     data: {
                         category: category,
                         gen: gen,
+                        page: page
                     },
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         $('.product-list').empty();
-                        $.each(data.shop, function(index, product) {
+                        $.each(data.shop, function (index, product) {
                             const shopDetailUrl = "{% url 'productapp:shopdetail' '0' %}".replace('0', product.id);
                             $('.product-list').append(
                                 `<li class="product-card" data-category="${product.cat}" data-gen="${product.gen}" data-color="${product.color}">
@@ -924,53 +950,63 @@
                                     </div>
                                     <div class="action">
                                         <div class="price">Rs:${product.price}</div>
-                                        <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display: inline; style="margin-right:20px;">
+                                        <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display: inline;">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="${product.id}">
-                                              <button type="submit" class=" text-white" style="background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:100px;height:40px;border-radius:10px;">
-                                                   Cart item
-                                              </button>
-                                              </form>
+                                            <button type="submit" class="text-white" style="background-image: url('{% static 'gradient3.jpg' %}'); background-size: cover;width:100px;height:40px;border-radius:10px;">
+                                                Cart item
+                                            </button>
+                                        </form>
                                     </div>
                                 </li>`
                             );
                         });
-                        applySearch(mobileSearchInput); // Reapply search functionality after updating product list for mobile
-                        applySearch(desktopSearchInput); // Reapply search functionality after updating product list for desktop
+
+                        // Update pagination controls based on the presence of next and previous pages
+                        let paginationHtml = '';
+                        if (data.has_previous) {
+                            paginationHtml += `<a href="?page=${page - 1}&category=${category}&gen=${gen}">Previous</a> `;
+                        }
+                        if (data.has_next) {
+                            paginationHtml += `<a href="?page=${page + 1}&category=${category}&gen=${gen}">Next</a>`;
+                        }
+                        $('.pagination').html(paginationHtml);
+
+                        // Reapply search functionality after updating product list
+                        applySearch(mobileSearchInput);
+                        applySearch(desktopSearchInput);
                     },
-                    error: function() {
+                    error: function () {
                         alert('Error fetching products. Please try again.');
                     }
                 });
             }
-            
-            $('.tab').on('click', function(e) {
+
+            $('.tab').on('click', function (e) {
                 e.preventDefault();
                 $('.tab').removeClass('active');
                 $(this).addClass('active');
-                fetchProducts();
+                fetchProducts(1); // Reset to page 1 when changing category
             });
-            
-            // Add change event listener for desktop filter based on screen size
-            $('#desktop-genFilter').on('change', function() {
+
+            $('#desktop-genFilter').on('change', function () {
                 if (window.innerWidth > 768) {
-                    fetchProducts();
+                    fetchProducts(1); // Reset to page 1 when changing filter
                 }
             });
 
-            // Add change event listener for mobile filter based on screen size
-            $('#mobile-genFilter').on('change', function() {
+            $('#mobile-genFilter').on('change', function () {
                 if (window.innerWidth <= 768) {
-                    fetchProducts();
+                    fetchProducts(1); // Reset to page 1 when changing filter
                 }
             });
-            
-            if (selectedCategory || selectedGen) {
-                fetchProducts();
-            }
+
+            // Initially load products based on the current page number
+            fetchProducts(pageNumber);
         });
     });
 </script>
+
 
 <style>
   .footer {

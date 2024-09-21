@@ -24,20 +24,24 @@ from django.http import JsonResponse, HttpResponseBadRequest
 import logging
 from django.http import Http404
 from django.contrib import messages
+from django.core.paginator import Paginator
+
 
 
 def allproducts(request):
-    tag = request.GET.get('tag')  # Get the tag from the query parameters
+    tag = request.GET.get('tag')
     products = Product.objects.all().order_by('-created_at')
 
     if tag:
-        products = products.filter(tag=tag)  # Filter products by the selected tag
+        products = products.filter(tag=tag)
 
-    tags = Product.objects.values_list('tag', flat=True).distinct()  # Get distinct tags
+    paginator = Paginator(products, 12)  # Show 12 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-     
+    tags = Product.objects.values_list('tag', flat=True).distinct()
 
-    return render(request, 'allproducts.html', {'products': products, 'tags': tags})
+    return render(request, 'allproducts.html', {'page_obj': page_obj, 'tags': tags})
 
 
 
@@ -55,6 +59,10 @@ def fetch_products(request):
     if title_query:
         products = products.filter(title__icontains=title_query)
 
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
     products_data = [
         {
             'id': product.product_id,
@@ -62,10 +70,18 @@ def fetch_products(request):
             'photo': product.image.url,
             'size': product.size,
             'price': product.price,
-        } for product in products
+        } for product in page_obj
     ]
 
-    return JsonResponse({'products': products_data})
+    return JsonResponse({
+        'products': products_data,
+        'has_next': page_obj.has_next(),
+        'has_previous': page_obj.has_previous(),  # Include has_previous
+        'next_page_number': page_obj.next_page_number() if page_obj.has_next() else None,
+        'previous_page_number': page_obj.previous_page_number() if page_obj.has_previous() else None  # Include previous_page_number
+    })
+
+
 
 def toggle_like(request):
     if request.method == 'POST':
@@ -177,6 +193,7 @@ def account(request):
         user_profile = None
     return render(request, 'accounts.html', {'user_profile': user_profile})
 
+@never_cache
 def edit_profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -247,23 +264,31 @@ def shop(request):
     if gen != 'all':
         shop = shop.filter(gen=gen)
 
-    return render(request, 'shopproduct.html', {'shop': shop})
+    # Pagination
+    paginator = Paginator(shop, 10)  # Show 10 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
+    return render(request, 'shopproduct.html', {'page_obj': page_obj})
 
 def fetch_shop(request):
     category = request.GET.get('category', 'all')
     gen = request.GET.get('gen', None)
+    page_number = request.GET.get('page', 1)
 
     # Start with all products
     shop = Shop.objects.all().order_by('-created_at')
 
-    # Apply the gender filter if provided
+    # Apply filters
     if gen:
         shop = shop.filter(gen=gen)
 
-    # Apply the category filter if not 'all'
     if category != 'all':
         shop = shop.filter(cat=category)
+
+    # Pagination
+    paginator = Paginator(shop, 10)  # Show 10 products per page
+    page_obj = paginator.get_page(page_number)
 
     # Prepare the product data for JSON response
     shop_data = [
@@ -273,11 +298,17 @@ def fetch_shop(request):
             'photo': product.photo1.url,
             'size': product.size,
             'price': product.price,
-        } for product in shop
+        } for product in page_obj
     ]
 
-    return JsonResponse({'shop': shop_data})
-
+    # Include pagination details in the response
+    return JsonResponse({
+        'shop': shop_data,
+        'has_next': page_obj.has_next(),
+        'has_previous': page_obj.has_previous(),  # Include has_previous
+        'page_number': page_obj.number,
+        'num_pages': paginator.num_pages,
+    })
 
 
 def shopdetail(request, id):

@@ -692,7 +692,7 @@
 
 <h1 class="text-center text-white" style="margin-top:20px;">DESIGNS</h1>
 <ul class="product-list" id="product-list">
-  {% for product in products %}
+  {% for product in page_obj %}
   
   <li class="product-card" data-tag="{{ product.tag }}">
     
@@ -711,109 +711,163 @@
   
   {% endfor %}
 </ul>
+<div id="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}&tag={{ request.GET.tag }}" class="prev-page text-center"><i class="fa-solid fa-arrow-left"></i></a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&tag={{ request.GET.tag }}" class="next-page text-center"><i class="fa-solid fa-arrow-right"></i></a>
+    {% endif %}
+</div>
+<style>
+    #pagination {
+    display: flex;
+    justify-content: center;  /* Center the buttons horizontally */
+    margin: 20px 0;          /* Add some margin above and below */
+}
 
+#pagination a {
+    display: inline-block;          /* Ensure the buttons are treated as blocks for styling */
+    padding: 10px 20px;            /* Add padding to make the buttons larger */
+    margin: 0 10px;                /* Add space between the buttons */
+    background-color: rgba(0, 0, 0, 0.7);  /* Semi-transparent black background */
+    color: white;                  /* Text color */
+    text-decoration: none;         /* Remove underline */
+    border-radius: 8px;           /* Rounded corners */
+    transition: background-color 0.3s;  /* Smooth transition for hover effect */
+    width:70px;
+}
 
+#pagination a:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Darker background on hover */
+}
 
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const desktopFilterSelect = document.getElementById('desktop-filter-select');
-      const mobileFilterSelect = document.getElementById('mobile-filter-select'); 
-      const mobileSearchInput = document.getElementById('query');
-      const desktopSearchInput = document.getElementById('desktop-query'); 
-  
-      function fetchProducts(tag, searchText) {
-          console.log('Fetching products with tag:', tag, 'and searchText:', searchText);
-          
-          $.ajax({
-              url: '{% url "productapp:fetch_products" %}',
-              data: {
-                  tag: tag || '',
-                  title: searchText || ''
-              },
-              dataType: 'json',
-              success: function(data) {
-                  console.log('Received data:', data);
-                  $('.product-list').empty();
-                  $.each(data.products, function(index, product) {
-                      console.log('Product ID:', product.id);
-                      const shopDetailUrl = "{% url 'productapp:details' '0' %}".replace('0', product.id);
-                      $('.product-list').append(
-                          `<li class="product-card" data-tag="${product.tag}" data-color="${product.color}">
-                              <a href="${shopDetailUrl}">
-                                  <div class="image_container">
-                                      <img src="${product.photo}" alt="${product.name}">
-                                  </div>
-                              </a>
-                              <h3 class="title ml-2 mt-1">${product.name}</h3>
-                              <div class="size"></div>
-                              <div class="action">
-                                  <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display: inline;">
-                                      {% csrf_token %}
-                                      <input type="hidden" name="product_id" value="${product.id}">
-                                  </form>
-                              </div>
-                          </li>
-                          `
-                      );
-                  });
-              },
-              error: function() {
-                  console.error('Error fetching products. Please try again.');
-                  alert('Error fetching products. Please try again.');
-              }
-          });
-      }
-      
-  
-      // Event listener for desktop filter dropdown
-      if (desktopFilterSelect) {
-          desktopFilterSelect.addEventListener('change', function() {
-              fetchProducts(this.value, desktopSearchInput.value || mobileSearchInput.value);
-          });
-      }
-  
-      // Event listener for mobile filter dropdown
-      if (mobileFilterSelect) {
-          mobileFilterSelect.addEventListener('change', function() {
-              fetchProducts(this.value, mobileSearchInput.value || desktopSearchInput.value);
-          });
-      }
-  
-      // Event listener for mobile search input
-      if (mobileSearchInput) {
-          mobileSearchInput.addEventListener('input', function() {
-              fetchProducts(mobileFilterSelect.value || desktopFilterSelect.value, this.value);
-          });
-      }
-  
-      // Event listener for desktop search input
-      if (desktopSearchInput) {
-          desktopSearchInput.addEventListener('input', function() {
-              fetchProducts(desktopFilterSelect.value || mobileFilterSelect.value, this.value);
-          });
-      }
-  
-      $(document).ready(function() {
-          const urlParams = new URLSearchParams(window.location.search);
-          const selectedTag = urlParams.get('tag');
-          
-          if (selectedTag) {
-              // Adjust for both desktop and mobile
-              if (desktopFilterSelect) desktopFilterSelect.value = selectedTag;
-              if (mobileFilterSelect) mobileFilterSelect.value = selectedTag;
-              fetchProducts(selectedTag, mobileSearchInput.value || desktopSearchInput.value);
-          }
-  
-          $('.tab').on('click', function(e) {
-              e.preventDefault();
-              $('.tab').removeClass('active');
-              $(this).addClass('active');
-              fetchProducts($(this).data('tag'), mobileSearchInput.value || desktopSearchInput.value);
-          });
-      });
-  });
-  </script>
+        const desktopFilterSelect = document.getElementById('desktop-filter-select');
+        const mobileFilterSelect = document.getElementById('mobile-filter-select'); 
+        const mobileSearchInput = document.getElementById('query');
+        const desktopSearchInput = document.getElementById('desktop-query'); 
+
+        function fetchProducts(tag, searchText, page = 1) {
+            console.log('Fetching products with tag:', tag, 'and searchText:', searchText, 'on page:', page);
+            
+            $.ajax({
+                url: '{% url "productapp:fetch_products" %}',
+                data: {
+                    tag: tag || '',
+                    title: searchText || '',
+                    page: page  // Include page number in the request
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Received data:', data);
+                    $('.product-list').empty();
+                    $.each(data.products, function(index, product) {
+                        console.log('Product ID:', product.id);
+                        const shopDetailUrl = "{% url 'productapp:details' '0' %}".replace('0', product.id);
+                        $('.product-list').append(
+                            `<li class="product-card" data-tag="${product.tag}" data-color="${product.color}">
+                                <a href="${shopDetailUrl}">
+                                    <div class="image_container">
+                                        <img src="${product.photo}" alt="${product.name}">
+                                    </div>
+                                </a>
+                                <h3 class="title ml-2 mt-1">${product.name}</h3>
+                                <div class="size"></div>
+                                <div class="action">
+                                    <form method="post" action="{% url 'productapp:add_to_cart' %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product_id" value="${product.id}">
+                                    </form>
+                                </div>
+                            </li>`
+                        );
+                    });
+
+                    // Update pagination
+                    let paginationHtml = '';
+                    if (data.has_previous) {
+                        paginationHtml += `<a href="#" class="prev-page text-center" data-page="${data.previous_page_number}"><i class="fa-solid fa-arrow-left"></i></a>`;
+                    }
+                    if (data.has_next) {
+                        paginationHtml += `<a href="#" class="next-page text-center" data-page="${data.next_page_number}"><i class="fa-solid fa-arrow-right"></i></a>`;
+                    }
+                    $('#pagination').html(paginationHtml);
+                },
+                error: function() {
+                    console.error('Error fetching products. Please try again.');
+                    alert('Error fetching products. Please try again.');
+                }
+            });
+        }
+
+        // Pagination click handler for next page
+        $(document).on('click', '.next-page', function(e) {
+            e.preventDefault();
+            const nextPage = $(this).data('page');
+            fetchProducts(desktopFilterSelect.value || mobileFilterSelect.value, desktopSearchInput.value || mobileSearchInput.value, nextPage);
+        });
+
+        // Pagination click handler for previous page
+        $(document).on('click', '.prev-page', function(e) {
+            e.preventDefault();
+            const prevPage = $(this).data('page');
+            fetchProducts(desktopFilterSelect.value || mobileFilterSelect.value, desktopSearchInput.value || mobileSearchInput.value, prevPage);
+        });
+
+        // Event listener for desktop filter dropdown
+        if (desktopFilterSelect) {
+            desktopFilterSelect.addEventListener('change', function() {
+                fetchProducts(this.value, desktopSearchInput.value || mobileSearchInput.value);
+            });
+        }
+
+        // Event listener for mobile filter dropdown
+        if (mobileFilterSelect) {
+            mobileFilterSelect.addEventListener('change', function() {
+                fetchProducts(this.value, mobileSearchInput.value || desktopSearchInput.value);
+            });
+        }
+
+        // Event listener for mobile search input
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', function() {
+                fetchProducts(mobileFilterSelect.value || desktopFilterSelect.value, this.value);
+            });
+        }
+
+        // Event listener for desktop search input
+        if (desktopSearchInput) {
+            desktopSearchInput.addEventListener('input', function() {
+                fetchProducts(desktopFilterSelect.value || mobileFilterSelect.value, this.value);
+            });
+        }
+
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedTag = urlParams.get('tag');
+            
+            if (selectedTag) {
+                // Adjust for both desktop and mobile
+                if (desktopFilterSelect) desktopFilterSelect.value = selectedTag;
+                if (mobileFilterSelect) mobileFilterSelect.value = selectedTag;
+                fetchProducts(selectedTag, mobileSearchInput.value || desktopSearchInput.value);
+            }
+
+            $('.tab').on('click', function(e) {
+                e.preventDefault();
+                $('.tab').removeClass('active');
+                $(this).addClass('active');
+                fetchProducts($(this).data('tag'), mobileSearchInput.value || desktopSearchInput.value);
+            });
+        });
+    });
+</script>
+
+
   
 
 
@@ -952,7 +1006,7 @@
         padding: 2rem;
         text-align: center;
         bottom:0;
-        margin-top: 200px;
+        margin-top: 160px;
         margin-bottom: -60px;
         width:96vw;
     }
