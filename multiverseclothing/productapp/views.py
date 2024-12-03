@@ -311,6 +311,7 @@ def fetch_shop(request):
     })
 
 
+
 def shopdetail(request, id):
     product = get_object_or_404(Shop, id=id)
     return render(request, 'shopdetail.html', {'product': product})
@@ -553,7 +554,7 @@ def upload_shop(request):
             shop_instance = form.save(commit=False)
             shop_instance.cat = request.POST.get('cat', '')  # Get the 'cat' value from POST data
             shop_instance.save()
-            return redirect('productapp:shop')
+            return redirect('productapp:admin_shop_view')
     else:
         form = ShopForm()
     return render(request, 'uploadshop.html', {'form': form})

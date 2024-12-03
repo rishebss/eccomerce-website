@@ -9,6 +9,7 @@
     <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
@@ -827,37 +828,56 @@
 
 <style>
     .pagination {
-        display: flex;
-        justify-content: center; /* Center the pagination links */
-        margin: 20px 0; /* Space above and below the pagination */
-    }
+    display: flex;
+    justify-content: center; /* Center the pagination buttons */
+    margin: 20px 0; /* Add margin for spacing */
+    margin-top:70px;
+    
+}
 
-    .step-links {
-        display: flex;
-        align-items: center; /* Align items vertically */
-    }
+.pagination-button {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Padding for the buttons */
+    margin: 0 5px; /* Space between buttons */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+    width:70px;
+    
+}
 
-    .step-links a {
-        text-decoration: none; /* Remove underline */
-        padding: 8px 12px; /* Add padding */
-        margin: 0 5px; /* Space between links */
-        border: 1px solid #007bff; /* Border color */
-        border-radius: 5px; /* Rounded corners */
-        background-color: #f8f9fa; /* Background color */
-        color: #007bff; /* Text color */
-        transition: background-color 0.3s, color 0.3s; /* Transition effects */
-    }
+.pagination-button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+    text-decoration: none;
+    color:white;
+}
 
-    .step-links a:hover {
-        background-color: #007bff; /* Background color on hover */
-        color: white; /* Text color on hover */
-    }
+.prev-button {
+    background-color: black; /* Different color for Previous button */
+    text-decoration: none;
+    color:white;
+}
 
-    .current {
-        margin: 0 10px; /* Space around current page text */
-        font-weight: bold; /* Make current page text bold */
-        color: #333; /* Current page text color */
-    }
+.prev-button:hover {
+    background-color: #44014b; /* Darker color on hover */
+    text-decoration: none;
+    color:white;
+}
+
+.next-button {
+    background-color: black; /* Different color for Next button */
+    text-decoration: none;
+    color:white;
+}
+
+.next-button:hover {
+    background-color: #44014b; /* Darker color on hover */
+    text-decoration: none;
+    color:white;
+}
 </style>
 
 <script>
@@ -964,13 +984,13 @@
 
                         // Update pagination controls based on the presence of next and previous pages
                         let paginationHtml = '';
-                        if (data.has_previous) {
-                            paginationHtml += `<a href="?page=${page - 1}&category=${category}&gen=${gen}">Previous</a> `;
-                        }
-                        if (data.has_next) {
-                            paginationHtml += `<a href="?page=${page + 1}&category=${category}&gen=${gen}">Next</a>`;
-                        }
-                        $('.pagination').html(paginationHtml);
+if (data.has_previous) {
+    paginationHtml += `<a href="?page=${page - 1}&category=${category}&gen=${gen}" class="pagination-button prev-button text-center"><i class="fa-solid fa-arrow-left"></i></a> `;
+}
+if (data.has_next) {
+    paginationHtml += `<a href="?page=${page + 1}&category=${category}&gen=${gen}" class="pagination-button next-button text-center"><i class="fa-solid fa-arrow-right"></i></a>`;
+}
+$('.pagination').html(paginationHtml);
 
                         // Reapply search functionality after updating product list
                         applySearch(mobileSearchInput);
@@ -1143,4 +1163,3 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

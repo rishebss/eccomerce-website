@@ -88,6 +88,7 @@
         .navbar {
             display: flex;
             align-items: center;
+
             
 
 
@@ -126,7 +127,7 @@
                 background: transparent;
                 cursor: pointer;
                 margin-top:1px;
-                margin-right:10px;
+                margin-right:20px;
                 
                 
             }
@@ -255,7 +256,7 @@
             height:800px;
             overflow: hidden;
             position: relative;
-            width: 100%;
+            width: 100vw;
             box-shadow: 0 100px 100px rgba(0, 0, 0, 0.9);
             border: 0.2px solid black;
             margin-top:20px;
@@ -376,15 +377,17 @@
             .hero {
         height: 40vh;
         background-position: center;
-        background-size: 500px;
+        background-size: 400px;
+        background:linear-gradient(to right, black, rgba(0, 0, 1, 1)),
         margin-top:50px;
         margin-bottom:50px;
-        width:110%;
-        border: 0.1px solid black;
-        box-shadow: 0 120px 50px rgba(0, 0, 0, 2);
+        width:100vw;
+        border: 4px solid black;
+        box-shadow: 0 120px 50px rgba(0, 0, 3, 2);
             }
             .hero-container {
                 padding: 15px 20px;
+
             }
             .hero-title {
                 font-size: 7vw;
@@ -703,8 +706,8 @@ burger.addEventListener('click', () => {
 }
 
 .carousel-cell {
-    width: 35%;
-    height: 600px;
+    width: 25%;
+    height: 400px;
     margin-right: 10px;
     border-radius: 15px;
     background-size: cover;
@@ -956,92 +959,7 @@ burger.addEventListener('click', () => {
     
     
 
-    <h2 class="text-center" style="margin-top:40px;font-family:myfont;color:#a9a9a9">CATEGORIES</h2>
-    <main>
-        <div class="swiper" style="--width: 200px; --height: 300px; --quantity: 8;">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="--position: 1">
-                    <div class="card">
-                        <img src="/static/img/anime2.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=anime" style="color:white;text-decoration: none;">
-                                <h3 style="font-family:myfont;font-size:1.5em;">ANIME</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 2">
-                    <div class="card">
-                        <img src="/static/img/simpsons.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=cartoon" style="color:white;text-decoration: none;">
-                            <h2 style="font-family:myfont;font-size:1.5em;">CARTOON</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 3">
-                    <div class="card">
-                        <img src="/static/img/spiderman.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=marvel" style="color:white;text-decoration: none;">
-                            <h2 style="font-family:myfont;font-size:1.5em;">MARVEL</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 4">
-                    <div class="card">
-                        <img src="/static/img/metalica.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=metal" style="color:white;text-decoration: none;">
-                            <h2 style="font-family:myfont;font-size:1.5em;">METAL</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 5">
-                    <div class="card">
-                        <img src="/static/img/abstract.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=abstract" style="color:white;text-decoration: none;">
-                            <h2 style="font-family:myfont;font-size:1.5em;">ABSTRACT</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 6">
-                    <div class="card">
-                        <img src="/static/img/weekend.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=pop" style="color:white;text-decoration: none;">
-                            <h2 style="font-family:myfont;font-size:1.5em;">POP</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 7">
-                    <div class="card">
-                        <img src="/static/img/minimal.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=minimals" style="color:white;text-decoration: none;">
-                                <h2 style="font-family:myfont;font-size:1.5em;">MINIMALS</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="--position: 8">
-                    <div class="card">
-                        <img src="/static/img/racing.jpg" alt="">
-                        <div class="overlay">
-                            <a href="{% url 'productapp:allproducts' %}?tag=racing" style="color:white;text-decoration: none;">
-                                <h2 style="font-family:myfont;font-size:1.5em;">RACING</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
         <h2 class="text-center" style="margin-top:20px;font-family: myfont;color:#a9a9a9">COLLECTIONS</h1>
     <div class="flex-container" style="margin-top:20px;margin-bottom:40px;">
         <a href="{% url 'productapp:shop' %}">
@@ -1298,7 +1216,7 @@ burger.addEventListener('click', () => {
           padding: 2rem;
           text-align: center;
           bottom:0;
-          width:96.5vw;
+          width:110%;
           margin-top: 100px;
           margin-bottom: -60px;
           
@@ -1311,6 +1229,7 @@ burger.addEventListener('click', () => {
           flex-wrap: wrap;
           justify-content: space-between;
           margin-bottom: 1rem;
+          margin-right:50px;
       }
       
       .footer-section {
