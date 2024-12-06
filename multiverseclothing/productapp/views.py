@@ -375,6 +375,7 @@ def purchase(request, selection_id):
     return render(request, 'purchase.html', {'selection': selection, 'user_profile': user_profile})
 
 @never_cache
+@never_cache
 def checkout_summary(request):
     cart_items = Cart.objects.filter(user=request.user)
     total_price = sum(float(item.product.price) for item in cart_items)
@@ -396,17 +397,19 @@ def checkout_summary(request):
         client = razorpay.Client(auth=('rzp_test_dTWp25pBQ5jW81', 'Sg6ymJfWNf4atGBsqXhuaALE'))
         payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
 
-        # Create OrderCart entries for each item
-        for item in cart_items:
-            OrderCart.objects.create(
-                user=request.user,
-                info=user_profile,
-                product_name=item.product.name,
-                color=item.product.color,
-                size=item.product.size,
-                amount=item.product.price,
-                payment_id=payment['id']
-            )
+        # Create a single OrderCart entry with the total amount
+        OrderCart.objects.create(
+            user=request.user,
+            info=user_profile,
+            product_name=", ".join([item.product.name for item in cart_items]),  # Combine product names
+            color=", ".join([item.product.color for item in cart_items]),
+            size=", ".join([item.product.size for item in cart_items]),
+            amount=total_price,  # Store the total price
+            payment_id=payment['id']
+        )
+
+        # Clear the cart
+        cart_items.delete()
         
         return render(request, "summary.html", {'payment': payment})
 
@@ -415,6 +418,7 @@ def checkout_summary(request):
         'total_price': total_price,
         'user_profile': user_profile
     })
+
 
 @never_cache
 @csrf_exempt
@@ -494,6 +498,8 @@ def faculty(request):
 
     return render(request, "cred.html")
 
+from django.db.models import Sum, F, FloatField
+
 def dashboard(request):
     user_count = User.objects.count()
 
@@ -521,8 +527,15 @@ def dashboard(request):
         reverse=True
     )
 
-    cart_revenue = OrderCart.objects.filter(paid=True).aggregate(total=Sum('amount'))['total'] or 0
-    design_revenue = OrderDesign.objects.filter(paid=True).aggregate(total=Sum('amount'))['total'] or 0
+    # Calculate total revenue using the sum of individual item prices
+    cart_revenue = (
+        OrderCart.objects.filter(paid=True)
+        .aggregate(total=Sum(F('amount'), output_field=FloatField()))['total'] or 0
+    )
+    design_revenue = (
+        OrderDesign.objects.filter(paid=True)
+        .aggregate(total=Sum(F('amount'), output_field=FloatField()))['total'] or 0
+    )
 
     # Total paid orders
     total_paid_orders = cart_order_count + design_order_count
@@ -537,6 +550,7 @@ def dashboard(request):
         'total_paid_orders': total_paid_orders,
         'total_revenue': total_revenue
     })
+
 
 def admin_product_view(request):
     products = Product.objects.all().order_by('-created_at')
