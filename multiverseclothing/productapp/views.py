@@ -3,6 +3,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import json
+from django.http import HttpResponse
+
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.db.models import Sum
@@ -383,15 +385,13 @@ def checkout_summary(request):
 
     if request.method == "POST":
         amount_str = request.POST.get("amount")
-        
+
         if amount_str is None:
-            print("Amount is missing from POST data")
             return HttpResponseBadRequest("Amount is missing")
 
         try:
             amount = int(amount_str) * 100
         except ValueError:
-            print("Invalid amount format")
             return HttpResponseBadRequest("Invalid amount format")
 
         client = razorpay.Client(auth=('rzp_test_dTWp25pBQ5jW81', 'Sg6ymJfWNf4atGBsqXhuaALE'))
@@ -401,16 +401,13 @@ def checkout_summary(request):
         OrderCart.objects.create(
             user=request.user,
             info=user_profile,
-            product_name=", ".join([item.product.name for item in cart_items]),  # Combine product names
+            product_name=", ".join([item.product.name for item in cart_items]),
             color=", ".join([item.product.color for item in cart_items]),
             size=", ".join([item.product.size for item in cart_items]),
-            amount=total_price,  # Store the total price
+            amount=total_price,
             payment_id=payment['id']
         )
 
-        # Clear the cart
-        cart_items.delete()
-        
         return render(request, "summary.html", {'payment': payment})
 
     return render(request, 'summary.html', {
@@ -425,30 +422,41 @@ def checkout_summary(request):
 def success(request):
     if request.method == "POST":
         a = request.POST
-        payment_id = ""
-        for key, val in a.items():
-            if key == "razorpay_order_id":
-                payment_id = val
-                break
-        
+        payment_id = a.get("razorpay_order_id", "")
+        razorpay_payment_id = a.get("razorpay_payment_id", "")
+        razorpay_signature = a.get("razorpay_signature", "")
+
+        # Verify payment with Razorpay
+        client = razorpay.Client(auth=('rzp_test_dTWp25pBQ5jW81', 'Sg6ymJfWNf4atGBsqXhuaALE'))
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': payment_id,
+                'razorpay_payment_id': razorpay_payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+        except razorpay.errors.SignatureVerificationError:
+            return HttpResponse("Payment verification failed.", status=400)
+
         # Update OrderCart status
         user_order = OrderCart.objects.filter(payment_id=payment_id).first()
         if user_order:
             user_order.paid = True
             user_order.save()
 
-            # Retrieve the cart items and delete products
+            # Clear cart and delete associated Shop products
             cart_items = Cart.objects.filter(user=user_order.user)
             for item in cart_items:
-                # Deleting product by name or another unique attribute
-                Shop.objects.filter(name=item.product.name).delete()
-                item.delete()  # Also remove the cart items
+                # Delete the product from Shop
+                product = item.product
+                product.delete()
 
-    response = render(request, "success.html")
-    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response['Pragma'] = 'no-cache'
-    response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
-    return response
+                # Delete the cart item
+                item.delete()
+
+    return render(request, "success.html", {
+        'message': 'Payment successful! Your order is confirmed, and the product has been removed.',
+    })
+
 
 @csrf_exempt
 def designsuccess(request):
