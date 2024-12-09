@@ -1,4 +1,6 @@
 {% load static %}
+
+{% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,12 +419,12 @@
         <span></span>
     </label>
     <nav class="navbar">
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="{% url 'productapp:about' %}">About</a>
+    <a href="https://wa.me/9048011906">Contact</a>
     {% if user.is_authenticated %}
-    <a href="#">Account</a>
+    <a href="{% url 'productapp:account' %}">Account</a>
     {% endif %}
-    <a href="#">Products</a>
+    <a href="{% url 'productapp:shop' %}">Products</a>
     {% if user.is_authenticated %}
         <a href="{% url 'credentials:logout' %}">Logout</a>
     {% else %}
@@ -691,7 +693,7 @@ burger.addEventListener('click', () => {
     <div class="carousel-cell" style="background-image: url(/static/darkfit10.jpg)"></div>
     <div class="carousel-cell" style="background-image: url(/static/darkfit13.jpg)"></div>
     <div class="carousel-cell" style="background-image: url(/static/darkfit11.jpg); position: relative;">
-        <button class="carousel-btn">more...</button>
+        <button class="carousel-btn">COMMING SOON..</button>
     </div>
 </div>
 
@@ -1339,3 +1341,517 @@ burger.addEventListener('click', () => {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+{% else %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULTIVERSE LANDING PAGE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face{
+font-family:myfont;
+src:url(/static/Geometos.ttf)
+}
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family:myfont;
+            line-height: 1.6;
+        }
+        .hero {
+            background: linear-gradient(180deg, rgb(4, 4, 4), transparent);
+            padding: 100px 20px;
+            text-align: center;
+            color: #f1f1f1;
+            margin-top:-260px;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin: 20px 20px;
+
+        }
+        .cta-button {
+            background-color: #4a5e3b;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(133.81, 77%, 40%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(87.86, 92%, 24%) 0, transparent 55%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            justify-content:center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .cta-button:hover {
+            background-color: #e84118;
+            transform: translateY(-3px);
+        }
+        .testimonial-section .row {
+            display: flex;
+            flex-wrap: wrap;
+            
+        }
+
+        .testimonial-card {
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .testimonial-card h5 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: #ff4757;
+        }
+
+        .testimonial-card p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .testimonial-card .star-rating {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            margin-top: auto; /* Push the rating to the bottom */
+        }
+
+        .testimonial-card {
+            min-height: 400px; /* Ensure all cards have a consistent height */
+            
+        }
+
+        .testimonial-section {
+            padding: 50px 0;
+            margin-top:-70px;
+            
+        }
+
+        footer {
+            background-color: transparent;
+            padding: 40px 20px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: #ff4757;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-media a:hover {
+            color: #ff4757;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            
+            background-color: transparent;
+            padding: 15px;
+            transition: background-color 0.3s ease;
+            
+            
+        }
+
+        .navbar .nav-link {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ff4757;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 500;
+            color: #ffffff;
+        }
+        .testimonial-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* To ensure the image scales properly */
+    border-radius: 50%; /* Make it round */
+    margin-bottom: 15px;
+    border: 3px solid #ff4757; /* Optional: add a border around the image */
+}
+.icon-menu {
+  --gap: 5px;
+  --height-bar: 2.5px;
+  --pos-y-bar-one: 0;
+  --pos-y-bar-three: 0;
+  --scale-bar: 1;
+  --rotate-bar-one: 0;
+  --rotate-bar-three: 0;
+  width: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  cursor: pointer;
+  position: relative;
+  margin-top:5px;
+  display:none;
+}
+@media (max-width: 767px) {
+            .icon-menu {
+                display: flex; /* Show the icon only on mobile */
+            }
+        }
+
+.bar {
+  position: relative;
+  height: var(--height-bar);
+  width: 100%;
+  border-radius: .5rem;
+  background-color: #d6d6d6;
+}
+
+.bar--1 {
+  top: var(--pos-y-bar-one);
+  transform: rotate(var(--rotate-bar-one));
+  transition: top 200ms 100ms, transform 100ms;
+}
+
+.bar--2 {
+  transform: scaleX(var(--scale-bar));
+  transition: transform 150ms 100ms;
+}
+
+.bar--3 {
+  bottom: var(--pos-y-bar-three);
+  transform: rotate(var(--rotate-bar-three));
+  transition: bottom 200ms 100ms, transform 100ms;
+}
+
+.check-icon:checked + .icon-menu > .bar--1 {
+  transition: top 200ms, transform 200ms 100ms;
+}
+
+.check-icon:checked + .icon-menu > .bar--3 {
+  transition: bottom 200ms, transform 200ms 100ms;
+}
+
+.check-icon:checked + .icon-menu {
+  --pos-y-bar-one: calc(var(--gap) + var(--height-bar));
+  --pos-y-bar-three: calc(var(--gap) + var(--height-bar));
+  --scale-bar: 0;
+  --rotate-bar-one: 45deg;
+  --rotate-bar-three: -45deg;
+}
+
+
+    </style>
+    
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="#">MULTIVERSE CLOTHING</a>
+            <input hidden class="check-icon" id="check-icon" name="check-icon" type="checkbox">
+            <label class="icon-menu" for="check-icon" data-toggle="collapse" data-target="#navbarNav">
+                <div class="bar bar--1"></div>
+                <div class="bar bar--2"></div>
+                <div class="bar bar--3"></div>
+            </label>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    
+                    
+                    <li class="nav-item"><a class="nav-link" href="" id="loginLink">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#contactModal">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <style>
+        .contact-icons a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .contact-icons p {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #ffffff;
+        }
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+    <style>
+        body.blur-background::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+        }
+    
+        body.no-scroll {
+            overflow: hidden;
+        }
+    
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 40px;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000; /* Ensure the form is above the blurred background */
+            display: none; /* Initially hidden */
+        }
+    
+        .login {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .flex {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .form button {
+            margin-top: 25px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            border: none;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            font-size: 19px;
+            font-weight: bold;
+            color: white;
+            background: black;
+        }
+    
+        .form label {
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+    
+        .form button:hover {
+            box-shadow: 2px 2px 12px white;
+        }
+    
+        .input {
+            height: 30px;
+            outline: none;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 2px 2px 12px inset black;
+        }
+    
+        .span:hover {
+            font-weight: bold;
+        }
+    
+        .color {
+            color: white;
+        }
+    
+        .align {
+            text-align: center;
+        }
+    
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999; /* Ensure the overlay is below the form but above the blurred background */
+            display: none; /* Initially hidden */
+        }
+    
+        .messages {
+            margin-top: 10px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Login Form -->
+    <form class="form" id="loginForm" action="{% url 'credentials:home' %}" method="post">
+    {% csrf_token %}
+    <div class="flex">
+        <div class="login color">Login</div>
+        <div class="messages" id="messages"></div>
+        <label class="color">Username :</label>
+        <input type="text" class="input" name="username" required>
+        <label class="color">Password :</label>
+        <input type="password" class="input" name="password" required>
+        <button type="submit">Log-in</button>
+        <br>
+        <div class="color align">Don't have account? <a href="{% url 'credentials:register' %}" class="span">Sign-Up</a></div>
+    </div>
+    </form>
+    
+<section class="hero" id="home">
+    <img src="/static/mc4.png" style="width:300px;margin-top:160px;">
+    <h3>GET INTO THE MULTIVERSE !!</h3>
+    <p>The website is currently in beta stage.Stay tuned for updates!</p>
+    <button class="cta-button mb-3 mt-3"><a href="{% url 'credentials:register' %}" style="color:white;text-decoration: none;">SIGN UP!</a></button>
+   
+    
+    
+</section>
+
+
+
+
+<footer>
+    <div class="footer-links">
+        
+        <a href="" data-toggle="modal" data-target="#contactModal">Contact Us</a>
+    </div>
+    <div class="social-media mt-3">
+        <a href="https://wa.me/9048011906" aria-label="Facebook"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="mailto:multiverseclothings@gmail.com" aria-label="Twitter"><i class="fa-regular fa-envelope"></i></a>
+        <a href="https://www.instagram.com/multiverse_clothing/profilecard/?igsh=MnVvbWtic2IzcWRw" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p class="mt-3">&copy; 2024 Multiverse Clothing. All Rights Reserved.</p>
+</footer>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #1f1f1f; color: #ffffff;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactModalLabel">Contact Us</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #ffffff;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                
+                <div class="contact-icons">
+                    <a href="mailto:your-email@example.com" class="d-block mb-2">
+                        <i class="fas fa-envelope" style="font-size: 2rem; color: #0e4716;"></i>
+                        <p>Email Us</p>
+                    </a>
+                    <a href="tel:+1234567890" class="d-block mb-2">
+                        <i class="fas fa-phone" style="font-size: 2rem; color: #0e4716;"></i>
+                        <p>Call Us</p>
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank" class="d-block mb-2">
+                        <i class="fab fa-whatsapp" style="font-size: 2rem; color: #0e4716;"></i>
+                        <p>WhatsApp Us</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Toggle collapse when the menu icon is clicked
+$('#check-icon').change(function() {
+    $('#navbarNav').toggleClass('show');
+});
+
+</script>
+<script>
+     document.getElementById('loginLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        document.body.classList.add('blur-background', 'no-scroll');
+    });
+
+    document.getElementById('overlay').addEventListener('click', function() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.body.classList.remove('blur-background', 'no-scroll');
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messages = document.getElementById('messages');
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                messages.textContent = data.message;
+            }
+        });
+    });
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+{% endif %}

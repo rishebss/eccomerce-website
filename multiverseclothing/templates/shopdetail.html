@@ -370,8 +370,11 @@ img{
                         </div>
                     </p>
                     <div class = "btn-groups">
-                        <a href="{% url 'productapp:add_to_cart' %}"><button type = "button" class = "add-cart-btn"><i class = "fas fa-shopping-cart"></i>add to cart</button></a>
-                        
+                        <form method="POST" action="{% url 'productapp:add_to_cart' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit" class="add-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        </form>                        
                     </div>
                 </div>
             </div>

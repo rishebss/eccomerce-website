@@ -23,7 +23,7 @@
         radial-gradient(at 82% 65%, hsl(331.03, 49%, 12%) 0, transparent 55%);
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: 'Arial', sans-serif;
+            
             padding: 10px 100px;
             height:50vh;
         }
@@ -184,9 +184,33 @@
     transition: color 0.3s ease;
     margin-top:10px;
 }
+
+
     </style>
 </head>
 <body>
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const burger = document.querySelector('.burger input');
+    const navbar = document.querySelector('.navbar');
+    const navBg = document.querySelector('.nav-bg');
+
+    burger.addEventListener('change', function () {
+        navbar.classList.toggle('active');
+        navBg.classList.toggle('active');
+    });
+
+    // Close menu when clicking on the background
+    navBg.addEventListener('click', function () {
+        navbar.classList.remove('active');
+        navBg.classList.remove('active');
+        burger.checked = false;
+    });
+});
+
+    </script>
+    </header>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6 product-detail">
@@ -296,7 +320,164 @@
             </div>
         </div>
     </div>
+<style>
+    :root {
+  --m: 4rem;
+}
 
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+    footer {
+  margin-top: 60px;
+  z-index: 500;
+  width: 107%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  padding: 5rem 2vw;
+  position: relative;
+ 
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 5%,
+    rgba(0, 0, 0, 0.3) 20%,
+    rgba(0, 0, 0, 0.6) 30%,
+    rgba(0, 0, 0, 0.8) 40%,
+    rgba(0, 0, 0, 1) 50%,
+    rgb(0, 0, 0)
+  );
+  z-index: -7;
+}
+
+.backdrop {
+  z-index: -5;
+  position: absolute;
+  inset: 0;
+
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+
+  mask-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+
+  -webkit-mask-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.5) 10%,
+    rgba(0, 0, 0, 0.8) 20%,
+    rgba(0, 0, 0, 1) 30%,
+    rgb(0, 0, 0)
+  );
+}
+
+.col {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: calc(0.3 * var(--m)) calc(0.8 * var(--m));
+  width: 28%;
+}
+
+.col2,
+.col3 {
+  backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+  border-radius: calc(0.5 * var(--m));
+  margin-bottom: 30px;
+  margin-left: 10px;
+}
+
+img {
+  height: calc(0.3 * var(--m));
+  object-fit: cover;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1rem;
+ 
+  
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link {
+  width: calc(0.8 * var(--m));
+  height: calc(0.8 * var(--m));
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: calc(0.1 * var(--m));
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+  :root {
+    --m: 3rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  footer {
+    flex-direction: column;
+    padding: 5rem 20vw;
+  }
+  .col {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+    footer {
+      flex-direction: column;
+      padding: 2rem 5vw;
+    }
+}
+</style>
+    <footer id="footer">
+        <div class="col col1 ">
+          <h3 style="font-family:myfont;margin-bottom:45px;margin-left:-10px;color:white;">MULTIVERSE CLOTHING</h3>
+          
+          <div class="social">
+            <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+            <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+            <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+          </div>
+          <br>
+          <p style="color: #818181; font-size: smaller">2024 © All Rights Reserved</p>
+        </div>
+        <div class="col col2 ">
+          <p>HOME</p>
+          <p>CALL US</p>
+          <p>PRIVACY POLICIES</p>
+          <p>SOCIALS</p>
+        </div>
+        <div class="col col3">
+          <p>CUSTOM SERVICE</p>
+          <p>PRODUCTS</p>
+          <p>DESIGNS</p>
+          <p><a href="#top">BACK TO TOP</a></p>
+        </div>
+        <div class="backdrop"></div>
+      </footer>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
@@ -330,3 +511,9 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+

@@ -559,14 +559,14 @@
             <figcaption>
                 <h3 class="text-white">STORE PRODUCTS</h3>
             </figcaption>
-            <a href="#"></a>
+            <a href="{% url 'productapp:shop' %}"></a>
         </figure>
         <figure class="snip1361">
             <img src="/static/heart2.png" alt="sample99" />
             <figcaption>
                 <h3 class="text-white">LIKED DESIGN</h3>
             </figcaption>
-            <a href="#"></a>
+            <a href="{% url 'productapp:liked_products' %}"></a>
         </figure>
         <figure class="snip1361">
             <img src="/static/plusicon.png" alt="sample99" />
@@ -1096,20 +1096,20 @@
           </div>
           <div class="footer-section contact">
               <h2 style="font-family: myfont;">Quick Links</h2>
-              <p style="font-family:myfont;"><a href="#home" style="color:white;">Home</a></p>
-              <p style="font-family:myfont;"><a href="#home" style="color:white;">Designs</a></p>
-              <p style="font-family:myfont;"><a href="#home" style="color:white;">About</a></p>
-              <p style="font-family:myfont;"><a href="#home" style="color:white;">Top</a></p>
+              <p style="font-family:myfont;"><a href="{% url 'credentials:home' %}" style="color:white;">Home</a></p>
+              <p style="font-family:myfont;"><a href="{% url 'productapp:allproducts' %}" style="color:white;">Designs</a></p>
+              <p style="font-family:myfont;"><a href="{% url 'productapp:about' %}" style="color:white;">About</a></p>
+              <p style="font-family:myfont;"><a href="#top" style="color:white;">Top</a></p>
               
           </div>
           <div class="footer-section social">
             <h2 style="font-family:myfont;">Connect Us</h2>
             <div class="social">
               
-              <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
-              <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
-              <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
-            </div>
+                <a href="mailto:multiverseclothings@gmail.com" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+                <a href="https://www.instagram.com/multiverse_clothing/profilecard/?igsh=MnVvbWtic2IzcWRw" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+                <a href="https://wa.me/9048011906" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+              </div>
           </div>
       </div>
       <div class="footer-bottom">

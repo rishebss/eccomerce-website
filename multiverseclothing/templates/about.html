@@ -277,23 +277,23 @@ a {
       <h3 style="font-family:myfont;margin-bottom:45px;margin-left:-10px;">MULTIVERSE CLOTHING</h3>
       
       <div class="social">
-        <a href="https://codepen.io/Juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
-        <a href="https://twitter.com/juxtopposed" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
-        <a href="https://youtube.com/@juxtopposed" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
+        <a href="mailto:multiverseclothings@gmail.com" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/mailicon.png" alt="" /></a>
+        <a href="https://www.instagram.com/multiverse_clothing/profilecard/?igsh=MnVvbWtic2IzcWRw" target="_blank" class="link" style="background: transparent;margin-right:20px;"><img style="width:4.5em;height:4.5em;" src="/static/instaicon.png" alt="" /></a>
+        <a href="https://wa.me/9048011906" target="_blank" class="link" style="background: transparent;"><img style="width:4.5em;height:5.0em;" src="/static/whatsicon.png" alt="" /></a>
       </div>
       <br>
       <p style="color: #818181; font-size: smaller">2024 © All Rights Reserved</p>
     </div>
     <div class="col col2 ">
-      <p>HOME</p>
-      <p>CALL US</p>
+      <p><a href="{% url 'credentials:home' %}">HOME</a></p>
+      <p<a href="tel:+91 90747 60272">CALL US</a></p>
       <p>PRIVACY POLICIES</p>
       <p>SOCIALS</p>
     </div>
     <div class="col col3">
       <p>CUSTOM SERVICE</p>
-      <p>PRODUCTS</p>
-      <p>DESIGNS</p>
+      <p><a href="{% url 'productapp:shop' %}">PRODUCTS</a></p>
+      <p><a href="{% url 'productapp:allproducts' %}">DESIGNS</a></p>
       <p><a href="#top">BACK TO TOP</a></p>
     </div>
     <div class="backdrop"></div>
